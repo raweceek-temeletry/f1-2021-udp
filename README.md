@@ -76,5 +76,5 @@ The following links contain information that summarises the UDP data structures 
 
 ## License
 
-This project is originally a fork of [f1-2018-udp](https://github.com/racehub-io/f1-telemetry-client).  
+This project is originally a fork of [f1-telemetry-client](https://github.com/racehub-io/f1-telemetry-client).  
 Licensed under the MIT License.
