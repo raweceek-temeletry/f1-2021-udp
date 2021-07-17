@@ -9,7 +9,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://https://github.com/PrimeGoose/f1-2021-udp.git"
+    "url": "https://github.com/PrimeGoose/f1-2021-udp"
   },
   "dependencies": {
     "binary-parser": "^1.5.0",
