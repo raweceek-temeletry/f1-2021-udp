@@ -130,13 +130,13 @@ export class PacketEventDataParser extends F1Parser {
       this.nest('FastestLap', {type: new FastestLapParser()});
 
     } else if (eventStringCode === EVENT_CODES.Retirement) {
-      this.uint8('retirement', {type: new RetirementParser()});
+      this.nest('Retirement', {type: new RetirementParser()});
 
     } else if (eventStringCode === EVENT_CODES.TeammateInPits) {
-      this.uint8('TeamMateInPits', {type: new TeamMateInPitsParser()});
+      this.nest('TeamMateInPits', {type: new TeamMateInPitsParser()});
 
     } else if (eventStringCode === EVENT_CODES.RaceWinner) {
-      this.uint8('RaceWinner', {type: new RaceWinnerParser()});
+      this.nest('RaceWinner', {type: new RaceWinnerParser()});
 
     } else if (eventStringCode === EVENT_CODES.PenaltyIssued) {
       this.nest('Penalty', {type: new PenaltyParser()});
@@ -145,25 +145,24 @@ export class PacketEventDataParser extends F1Parser {
       this.nest('SpeedTrap', {type: new SpeedTrapParser()});
 
     } else if (eventStringCode === EVENT_CODES.StartLights) {
-      this.uint8('StartLights', {type: new StartLightsParser()});
+      this.nest('StartLights', {type: new StartLightsParser()});
 
     } else if (eventStringCode === EVENT_CODES.LightsOut) {
-      this.uint8('StartLightsOut', {type: new StartLightsOutParser()});
+      this.nest('StartLightsOut', {type: new StartLightsOutParser()});
 
     } else if (eventStringCode === EVENT_CODES.DriveThroughServed) {
-      this.uint8(
+      this.nest(
           'DriveThroughPenaltyServed',
           {type: new DriveThroughPenaltyServedParser()});
 
     } else if (eventStringCode === EVENT_CODES.StopGoServed) {
-      this.uint8(
-          'StopGoPenaltyServed', {type: new StopGoPenaltyServedParser()});
+      this.nest('StopGoPenaltyServed', {type: new StopGoPenaltyServedParser()});
 
     } else if (eventStringCode === EVENT_CODES.Flashback) {
       this.nest('Flashback', {type: new FlashbackParser()});
 
     } else if (eventStringCode === EVENT_CODES.ButtonStatus) {
-      this.uint32('Buttons', {type: new ButtonsParser()});
+      this.nest('Buttons', {type: new ButtonsParser()});
     }
   };
 
