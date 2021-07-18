@@ -10,5 +10,5 @@ export const PACKETS = {
   finalClassification: 'finalClassification',
   lobbyInfo: 'lobbyInfo',
   carDamage: 'carDamage',
-  history: 'history'
+  sessionHistory: 'SessionHistory'
 };

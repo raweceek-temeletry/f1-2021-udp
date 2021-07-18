@@ -103,7 +103,7 @@ class F1TelemetryClient extends EventEmitter {
       case PACKETS.carDamage:
         return PacketCarDamageParser;
 
-      case PACKETS.history:
+      case PACKETS.sessionHistory:
         return PacketSessionHistoryDataParser;
 
       case PACKETS.session:
