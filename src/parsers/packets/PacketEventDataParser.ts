@@ -6,86 +6,33 @@ import {F1Parser} from '../F1Parser';
 import {PacketHeaderParser} from './PacketHeaderParser';
 import {PacketEventData} from './types';
 
-export class GenericEventParser extends F1Parser {
-  constructor() {
-    super();
-
-    this.endianess('little').uint8('vehicleIdx');
-  }
-}
-
-/*    struct
-    {
-        uint8	vehicleIdx; // Vehicle index of car achieving fastest lap
-        float	lapTime;    // Lap time is in seconds
-    } FastestLap;
-*/
 export class FastestLapParser extends F1Parser {
   constructor() {
     super();
-
     this.endianess('little').uint8('vehicleIdx').floatle('lapTime');
   }
 }
 
-export class SpeedTrapParser extends F1Parser {
+export class RetirementParser extends F1Parser {
   constructor() {
     super();
-
-    this.endianess('little')
-        .uint8('vehicleIdx')
-        .floatle('speed')
-        .uint8('overallFastestInSession')
-        .uint8('driverFastestInSession');
-  }
-}
-
-
-export class StartLIghtsParser extends F1Parser {
-  constructor() {
-    super();
-
-    this.endianess('little').uint8('numLights');
-  }
-}
-
-export class DriveThroughPenaltyServedParser extends F1Parser {
-  constructor() {
-    super();
-
     this.endianess('little').uint8('vehicleIdx');
   }
 }
 
-export class StopGoPenaltyServedParser extends F1Parser {
+export class TeamMateInPitsParser extends F1Parser {
   constructor() {
     super();
-
     this.endianess('little').uint8('vehicleIdx');
   }
 }
 
-
-export class FlashbackParser extends F1Parser {
+export class RaceWinnerParser extends F1Parser {
   constructor() {
     super();
-
-    this.endianess('little')
-        .uint32('flashbackFrameIdentifier')
-        .floatle('flashbackSessionTime');
+    this.endianess('little').uint8('vehicleIdx');
   }
 }
-
-
-export class ButtonsParser extends F1Parser {
-  constructor() {
-    super();
-
-    this.endianess('little').uint32('m_buttonStatus');
-  }
-}
-
-
 
 export class PenaltyParser extends F1Parser {
   constructor() {
@@ -102,6 +49,63 @@ export class PenaltyParser extends F1Parser {
   }
 }
 
+export class SpeedTrapParser extends F1Parser {
+  constructor() {
+    super();
+    this.endianess('little')
+        .uint8('vehicleIdx')
+        .floatle('speed')
+        .uint8('overallFastestInSession')
+        .uint8('driverFastestInSession');
+  }
+}
+
+export class StartLightsParser extends F1Parser {
+  constructor() {
+    super();
+
+    this.endianess('little').uint8('numLights');
+  }
+}
+
+export class StartLightsOutParser extends F1Parser {
+  constructor() {
+    super();
+
+    this.endianess('little').uint8('LightsOut');
+  }
+}
+
+export class DriveThroughPenaltyServedParser extends F1Parser {
+  constructor() {
+    super();
+    this.endianess('little').uint8('vehicleIdx');
+  }
+}
+
+export class StopGoPenaltyServedParser extends F1Parser {
+  constructor() {
+    super();
+    this.endianess('little').uint8('vehicleIdx');
+  }
+}
+
+export class FlashbackParser extends F1Parser {
+  constructor() {
+    super();
+    this.endianess('little')
+        .uint32('flashbackFrameIdentifier')
+        .floatle('flashbackSessionTime');
+  }
+}
+
+export class ButtonsParser extends F1Parser {
+  constructor() {
+    super();
+    this.endianess('little').uint32('m_buttonStatus');
+  }
+}
+
 export class PacketEventDataParser extends F1Parser {
   data: PacketEventData;
 
@@ -114,6 +118,7 @@ export class PacketEventDataParser extends F1Parser {
         })
         .string('m_eventStringCode', {length: 4});
 
+
     this.unpack2021Format(buffer, bigintEnabled);
     this.data = this.fromBuffer(buffer);
   }
@@ -122,37 +127,43 @@ export class PacketEventDataParser extends F1Parser {
     const eventStringCode = this.getEventStringCode(buffer, bigintEnabled);
 
     if (eventStringCode === EVENT_CODES.FastestLap) {
-      this.nest('m_eventDetails', {type: new FastestLapParser()});
+      this.nest('FastestLap', {type: new FastestLapParser()});
 
-    } else if (
-        eventStringCode === EVENT_CODES.Retirement ||
-        eventStringCode === EVENT_CODES.TeammateInPits ||
-        eventStringCode === EVENT_CODES.RaceWinner) {
-      this.nest('m_eventDetails', {type: new GenericEventParser()});
+    } else if (eventStringCode === EVENT_CODES.Retirement) {
+      this.uint8('retirement', {type: new RetirementParser()});
 
-    } else if (eventStringCode === EVENT_CODES.SpeedTrapTriggered) {
-      this.nest('m_eventDetails', {type: new SpeedTrapParser()});
+    } else if (eventStringCode === EVENT_CODES.TeammateInPits) {
+      this.uint8('TeamMateInPits', {type: new TeamMateInPitsParser()});
+
+    } else if (eventStringCode === EVENT_CODES.RaceWinner) {
+      this.uint8('RaceWinner', {type: new RaceWinnerParser()});
 
     } else if (eventStringCode === EVENT_CODES.PenaltyIssued) {
-      this.nest('m_eventDetails', {type: new PenaltyParser()});
+      this.nest('Penalty', {type: new PenaltyParser()});
 
-    } else if (
-        eventStringCode === EVENT_CODES.StartLights ||
-        eventStringCode === EVENT_CODES.LightsOut) {
-      this.nest('m_eventDetails', {type: new StartLIghtsParser()});
+    } else if (eventStringCode === EVENT_CODES.SpeedTrapTriggered) {
+      this.nest('SpeedTrap', {type: new SpeedTrapParser()});
+
+    } else if (eventStringCode === EVENT_CODES.StartLights) {
+      this.uint8('StartLights', {type: new StartLightsParser()});
+
+    } else if (eventStringCode === EVENT_CODES.LightsOut) {
+      this.uint8('StartLightsOut', {type: new StartLightsOutParser()});
 
     } else if (eventStringCode === EVENT_CODES.DriveThroughServed) {
-      this.nest(
-          'm_eventDetails', {type: new DriveThroughPenaltyServedParser()});
+      this.uint8(
+          'DriveThroughPenaltyServed',
+          {type: new DriveThroughPenaltyServedParser()});
 
     } else if (eventStringCode === EVENT_CODES.StopGoServed) {
-      this.nest('m_eventDetails', {type: new StopGoPenaltyServedParser()});
+      this.uint8(
+          'StopGoPenaltyServed', {type: new StopGoPenaltyServedParser()});
 
     } else if (eventStringCode === EVENT_CODES.Flashback) {
-      this.nest('m_eventDetails', {type: new FlashbackParser()});
+      this.nest('Flashback', {type: new FlashbackParser()});
 
     } else if (eventStringCode === EVENT_CODES.ButtonStatus) {
-      this.nest('m_eventDetails', {type: new ButtonsParser()});
+      this.uint32('Buttons', {type: new ButtonsParser()});
     }
   };
 
