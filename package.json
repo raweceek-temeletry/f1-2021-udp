@@ -1,6 +1,6 @@
 {
   "name": "f1-2021-udp",
-  "version": "1.0.7-beta.4",
+  "version": "1.0.7-beta.5",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
@@ -34,12 +34,12 @@
     "type-check": "tsc --noEmit",
     "check": "gts check",
     "clean": "gts clean",
-    "compile": "tsc",
+    
     "fix": "gts fix",
-    "prepare": "npm.cmd run compile",
-    "pretest": "npm.cmd run compile",
-    "posttest": "npm.cmd run lint",
-    "lint": "gts lint --ignore-pattern"
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run lint",
+    "lint": "gts lint"
   },
   "husky": {
     "hooks": {
