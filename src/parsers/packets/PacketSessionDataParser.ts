@@ -55,6 +55,6 @@ export class PacketSessionDataParser extends F1Parser {
         .uint8('m_dynamicRacingLine')
         .uint8('m_dynamicRacingLineType');
 
-    this.data = this.fromBuffer(buffer);
+    this.data = this.fromBuffer(buffer)as PacketSessionData;
   }
 }

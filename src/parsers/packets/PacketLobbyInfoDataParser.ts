@@ -16,6 +16,6 @@ export class PacketLobbyInfoDataParser extends F1Parser {
         .uint8('m_numPlayers')
         .array('m_lobbyPlayers', {length: 22, type: new LobbyInfoDataParser()});
 
-    this.data = this.fromBuffer(buffer);
+    this.data = this.fromBuffer(buffer)as PacketLobbyInfoData;
   }
 }

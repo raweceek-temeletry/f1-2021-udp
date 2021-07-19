@@ -24,6 +24,6 @@ export class PacketCarTelemetryDataParser extends F1Parser {
         .uint8('m_mfdPanelIndexSecondaryPlayer')
         .int8('m_suggestedGear');
 
-    this.data = this.fromBuffer(buffer);
+    this.data = this.fromBuffer(buffer) as PacketCarTelemetryData;
   }
 }

@@ -1,12 +1,12 @@
 import * as dgram from 'dgram';
-import {EventEmitter} from 'events';
-import {AddressInfo} from 'net';
+import { EventEmitter } from 'events';
+import { AddressInfo } from 'net';
 import * as constants from './constants';
 import * as constantsTypes from './constants/types';
-import {PacketCarDamageParser, PacketCarSetupDataParser, PacketCarStatusDataParser, PacketCarTelemetryDataParser, PacketEventDataParser, PacketFinalClassificationDataParser, PacketFormatParser, PacketHeaderParser, PacketLapDataParser, PacketLobbyInfoDataParser, PacketMotionDataParser, PacketParticipantsDataParser, PacketSessionDataParser, PacketSessionHistoryDataParser} from './parsers/packets';
+import { PacketCarDamageParser, PacketCarSetupDataParser, PacketCarStatusDataParser, PacketCarTelemetryDataParser, PacketEventDataParser, PacketFinalClassificationDataParser, PacketFormatParser, PacketHeaderParser, PacketLapDataParser, PacketLobbyInfoDataParser, PacketMotionDataParser, PacketParticipantsDataParser, PacketSessionDataParser, PacketSessionHistoryDataParser } from './parsers/packets';
 
 import * as packetTypes from './parsers/packets/types';
-import {Address, Options, Parsed, ParsedMessage} from './types';
+import { Address, Options, Parsed, ParsedMessage } from './types';
 
 
 const DEFAULT_PORT = 20777;
@@ -46,9 +46,9 @@ class F1TelemetryClient extends EventEmitter {
    * @param {Buffer} message
    */
   static parseBufferMessage(message: Buffer, bigintEnabled = false):
-      ParsedMessage|undefined {
-    const {m_packetId} =
-        F1TelemetryClient.parsePacketHeader(message, bigintEnabled);
+    ParsedMessage | undefined {
+    const { m_packetId } =
+      F1TelemetryClient.parsePacketHeader(message, bigintEnabled);
 
     const parser = F1TelemetryClient.getParserByPacketId(m_packetId);
 
@@ -60,7 +60,7 @@ class F1TelemetryClient extends EventEmitter {
     const packetID = Object.keys(constants.PACKETS)[m_packetId];
 
     // emit parsed message
-    return {packetData, packetID};
+    return { packetData, packetID };
   }
 
   /**
@@ -71,11 +71,11 @@ class F1TelemetryClient extends EventEmitter {
 
 
   static parsePacketHeader(
-      buffer: Buffer, bigintEnabled: boolean
-      // tslint:disable-next-line:no-any
-      ): Parsed {
+    buffer: Buffer, bigintEnabled: boolean
+    // tslint:disable-next-line:no-any
+  ): Parsed {
     const packetHeaderParser = new PacketHeaderParser(bigintEnabled);
-    return packetHeaderParser.fromBuffer(buffer);
+    return packetHeaderParser.fromBuffer(buffer) as Parsed
   }
 
   /**
@@ -84,7 +84,7 @@ class F1TelemetryClient extends EventEmitter {
    * @param {Number} packetId
    */
   static getPacketSize(packetFormat: number, packetId: number) {
-    const {PACKET_SIZES} = constants;
+    const { PACKET_SIZES } = constants;
     const packetValues = Object.values(PACKET_SIZES);
     return packetValues[packetId][packetFormat];
   }
@@ -94,7 +94,7 @@ class F1TelemetryClient extends EventEmitter {
    * @param {Number} packetId
    */
   static getParserByPacketId(packetId: number) {
-    const {PACKETS} = constants;
+    const { PACKETS } = constants;
 
     const packetKeys = Object.keys(PACKETS);
     const packetType = packetKeys[packetId];
@@ -152,7 +152,7 @@ class F1TelemetryClient extends EventEmitter {
     }
 
     const parsedMessage =
-        F1TelemetryClient.parseBufferMessage(message, this.bigintEnabled);
+      F1TelemetryClient.parseBufferMessage(message, this.bigintEnabled);
 
     if (!parsedMessage || !parsedMessage.packetData) {
       return;
@@ -175,7 +175,7 @@ class F1TelemetryClient extends EventEmitter {
     }
     for (const address of this.forwardAddresses) {
       this.socket.send(
-          message, 0, message.length, address.port, address.ip || '0.0.0.0');
+        message, 0, message.length, address.port, address.ip || '0.0.0.0');
     }
   }
 
@@ -194,7 +194,7 @@ class F1TelemetryClient extends EventEmitter {
 
       const address = this.socket.address() as AddressInfo;
       console.log(
-          `UDP Client listening on ${address.address}:${address.port} 🏎`);
+        `UDP Client listening on ${address.address}:${address.port} 🏎`);
       this.socket.setBroadcast(true);
     });
 

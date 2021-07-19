@@ -18,6 +18,6 @@ export class PacketLapDataParser extends F1Parser {
           type: new LapDataParser(),
         });
 
-    this.data = this.fromBuffer(buffer);
+    this.data = this.fromBuffer(buffer)as PacketLapData;
   }
 }

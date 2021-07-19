@@ -19,6 +19,6 @@ export class PacketFinalClassificationDataParser extends F1Parser {
           type: new FinalClassificationDataParser(),
         });
 
-    this.data = this.fromBuffer(buffer);
+    this.data = this.fromBuffer(buffer)as PacketFinalClassificationData;
   }
 }

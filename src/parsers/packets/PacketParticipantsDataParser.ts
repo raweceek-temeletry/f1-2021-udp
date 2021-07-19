@@ -18,6 +18,6 @@ export class PacketParticipantsDataParser extends F1Parser {
           type: new ParticipantDataParser(),
         });
 
-    this.data = this.fromBuffer(buffer);
+    this.data = this.fromBuffer(buffer)as PacketParticipantsData;
   }
 }

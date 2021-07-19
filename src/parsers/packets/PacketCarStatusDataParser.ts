@@ -18,6 +18,6 @@ export class PacketCarStatusDataParser extends F1Parser {
           type: new CarStatusDataParser(),
         });
 
-    this.data = this.fromBuffer(buffer);
+    this.data = this.fromBuffer(buffer) as PacketCarStatusData;
   }
 }

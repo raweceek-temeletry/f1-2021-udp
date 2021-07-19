@@ -120,7 +120,7 @@ export class PacketEventDataParser extends F1Parser {
 
 
     this.unpack2021Format(buffer, bigintEnabled);
-    this.data = this.fromBuffer(buffer);
+    this.data = this.fromBuffer(buffer)as PacketEventData;
   }
 
   unpack2021Format = (buffer: Buffer, bigintEnabled: boolean) => {
