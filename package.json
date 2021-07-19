@@ -1,6 +1,6 @@
 {
   "name": "f1-2021-udp",
-  "version": "1.0.7-beta.5",
+  "version": "1.0.7-beta.6",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
@@ -34,7 +34,7 @@
     "type-check": "tsc --noEmit",
     "check": "gts check",
     "clean": "gts clean",
-    
+    "compile": "tsc",
     "fix": "gts fix",
     "prepare": "npm run compile",
     "pretest": "npm run compile",
