@@ -10,13 +10,13 @@ export class PacketCarStatusDataParser extends F1Parser {
     super();
 
     this.endianess('little')
-        .nest('m_header', {
-          type: new PacketHeaderParser(bigintEnabled),
-        })
-        .array('m_carStatusData', {
-          length: 22,
-          type: new CarStatusDataParser(),
-        });
+      .nest('m_header', {
+        type: new PacketHeaderParser(bigintEnabled),
+      })
+      .array('m_carStatusData', {
+        length: 22,
+        type: new CarStatusDataParser(),
+      });
 
     this.data = this.fromBuffer(buffer) as PacketCarStatusData;
   }

@@ -1,9 +1,9 @@
-import { F1Parser } from '../F1Parser';
+import {F1Parser} from '../F1Parser';
 
-import { LapHistoryDataParser } from './LapHistoryData';
-import { PacketHeaderParser } from './PacketHeaderParser';
-import { PacketSessionHistoryData } from './types';
-import { TyreStintHistoryDataParser } from './TyreStintHistoryData';
+import {LapHistoryDataParser} from './LapHistoryData';
+import {PacketHeaderParser} from './PacketHeaderParser';
+import {PacketSessionHistoryData} from './types';
+import {TyreStintHistoryDataParser} from './TyreStintHistoryData';
 
 export class PacketSessionHistoryDataParser extends F1Parser {
   data: PacketSessionHistoryData;
@@ -31,6 +31,6 @@ export class PacketSessionHistoryDataParser extends F1Parser {
         type: new TyreStintHistoryDataParser(),
       });
 
-    this.data = this.fromBuffer(buffer) as PacketSessionHistoryData
+    this.data = this.fromBuffer(buffer) as PacketSessionHistoryData;
   }
 }

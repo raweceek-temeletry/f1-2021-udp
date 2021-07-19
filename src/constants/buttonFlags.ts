@@ -18,7 +18,5 @@ export const BUTTON_FLAGS: {[index: string]: string} = {
   0x00010000: 'Right Stick Right',
   0x00020000: 'Right Stick Up',
   0x00040000: 'Right Stick Down',
-  0x00080000: 'Special'
-
-
+  0x00080000: 'Special',
 };

@@ -17,11 +17,13 @@
   },
   "devDependencies": {
     "@types/binary-parser": "^1.5.0",
-    "eslint": "~5.0.0",
-    "gts": "3.1.0",
+    "@types/node": "^14.11.2",
+    "eslint": "~7.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "gts": "^3.1.0",
     "husky": "7.0.1",
     "lint-staged": "11.0.1",
-    "typescript": "4.3.5"
+    "typescript": "^4.0.3"
   },
   "scripts": {
     "prepublishOnly": "npm run build",
@@ -32,11 +34,12 @@
     "type-check": "tsc --noEmit",
     "check": "gts check",
     "clean": "gts clean",
-    "compile": "tsc -p .",
+    "compile": "tsc",
     "fix": "gts fix",
-    "prepare": "npm run compile",
-    "pretest": "npm run compile",
-    "posttest": "npm run check"
+    "prepare": "npm.cmd run compile",
+    "pretest": "npm.cmd run compile",
+    "posttest": "npm.cmd run lint",
+    "lint": "gts lint --ignore-pattern"
   },
   "husky": {
     "hooks": {
@@ -71,5 +74,6 @@
     "e sports",
     "e-sports",
     "videogame"
-  ]
+  ],
+  "engines": {"node": ">=8.3.0"}
 }

@@ -10,12 +10,12 @@ export class PacketLobbyInfoDataParser extends F1Parser {
     super();
 
     this.endianess('little')
-        .nest('m_header', {
-          type: new PacketHeaderParser(bigintEnabled),
-        })
-        .uint8('m_numPlayers')
-        .array('m_lobbyPlayers', {length: 22, type: new LobbyInfoDataParser()});
+      .nest('m_header', {
+        type: new PacketHeaderParser(bigintEnabled),
+      })
+      .uint8('m_numPlayers')
+      .array('m_lobbyPlayers', {length: 22, type: new LobbyInfoDataParser()});
 
-    this.data = this.fromBuffer(buffer)as PacketLobbyInfoData;
+    this.data = this.fromBuffer(buffer) as PacketLobbyInfoData;
   }
 }

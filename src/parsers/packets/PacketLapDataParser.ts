@@ -10,14 +10,14 @@ export class PacketLapDataParser extends F1Parser {
     super();
 
     this.endianess('little')
-        .nest('m_header', {
-          type: new PacketHeaderParser(bigintEnabled),
-        })
-        .array('m_lapData', {
-          length: 22,
-          type: new LapDataParser(),
-        });
+      .nest('m_header', {
+        type: new PacketHeaderParser(bigintEnabled),
+      })
+      .array('m_lapData', {
+        length: 22,
+        type: new LapDataParser(),
+      });
 
-    this.data = this.fromBuffer(buffer)as PacketLapData;
+    this.data = this.fromBuffer(buffer) as PacketLapData;
   }
 }

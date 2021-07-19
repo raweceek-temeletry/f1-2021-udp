@@ -17,5 +17,5 @@ export const EVENT_CODES: {[index: string]: EventCode} = {
   DriveThroughServed: 'DTSV',
   StopGoServed: 'SGSV',
   Flashback: 'FLBK',
-  ButtonStatus: 'BUTN'
+  ButtonStatus: 'BUTN',
 };

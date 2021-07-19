@@ -1,9 +1,39 @@
-import {PacketCarDamageParser, PacketCarSetupDataParser, PacketCarStatusDataParser, PacketCarTelemetryDataParser, PacketEventDataParser, PacketFinalClassificationDataParser, PacketLapDataParser, PacketLobbyInfoDataParser, PacketMotionDataParser, PacketParticipantsDataParser, PacketSessionDataParser, PacketSessionHistoryDataParser} from './parsers/packets';
-import {CarDamageData, CarSetupData, CarStatusData, CarTelemetryData, FinalClassificationData, LapData, LapHistoryData, LobbyInfoData, MarshalZone, MotionData, PacketHeader, ParticipantData, TyreDamage, TyreStintHistoryData, TyreWear, WeatherForecastSample} from './parsers/packets/types';
+import {
+  PacketCarDamageParser,
+  PacketCarSetupDataParser,
+  PacketCarStatusDataParser,
+  PacketCarTelemetryDataParser,
+  PacketEventDataParser,
+  PacketFinalClassificationDataParser,
+  PacketLapDataParser,
+  PacketLobbyInfoDataParser,
+  PacketMotionDataParser,
+  PacketParticipantsDataParser,
+  PacketSessionDataParser,
+  PacketSessionHistoryDataParser,
+} from './parsers/packets';
+import {
+  CarDamageData,
+  CarSetupData,
+  CarStatusData,
+  CarTelemetryData,
+  FinalClassificationData,
+  LapData,
+  LapHistoryData,
+  LobbyInfoData,
+  MarshalZone,
+  MotionData,
+  PacketHeader,
+  ParticipantData,
+  TyreDamage,
+  TyreStintHistoryData,
+  TyreWear,
+  WeatherForecastSample,
+} from './parsers/packets/types';
 
 export interface Options {
   port?: number;
-  forwardAddresses?: Address[]|undefined;
+  forwardAddresses?: Address[] | undefined;
   bigintEnabled?: boolean;
   skipParsing?: boolean;
   address?: string;
@@ -16,14 +46,21 @@ export interface Address {
 
 export interface ParsedMessage {
   packetID: string;
-  packetData:|PacketSessionDataParser|PacketMotionDataParser|
-      PacketCarDamageParser|PacketSessionHistoryDataParser|PacketLapDataParser|
-      PacketEventDataParser|PacketParticipantsDataParser|
-      PacketCarSetupDataParser|PacketCarTelemetryDataParser|
-      PacketCarStatusDataParser|PacketFinalClassificationDataParser|
-      PacketLobbyInfoDataParser|null;
+  packetData:
+    | PacketSessionDataParser
+    | PacketMotionDataParser
+    | PacketCarDamageParser
+    | PacketSessionHistoryDataParser
+    | PacketLapDataParser
+    | PacketEventDataParser
+    | PacketParticipantsDataParser
+    | PacketCarSetupDataParser
+    | PacketCarTelemetryDataParser
+    | PacketCarStatusDataParser
+    | PacketFinalClassificationDataParser
+    | PacketLobbyInfoDataParser
+    | null;
 }
-
 
 export interface Parsed {
   m_header: PacketHeader;

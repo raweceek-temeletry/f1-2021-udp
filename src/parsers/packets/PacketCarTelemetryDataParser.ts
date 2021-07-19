@@ -10,19 +10,19 @@ export class PacketCarTelemetryDataParser extends F1Parser {
     super();
 
     this.endianess('little')
-        .nest('m_header', {
-          type: new PacketHeaderParser(bigintEnabled),
-        })
+      .nest('m_header', {
+        type: new PacketHeaderParser(bigintEnabled),
+      })
 
-        .array('m_carTelemetryData', {
-          length: 22,
-          type: new CarTelemetryDataParser(),
-        })
+      .array('m_carTelemetryData', {
+        length: 22,
+        type: new CarTelemetryDataParser(),
+      })
 
-        .uint32le('m_buttonStatus')
-        .uint8('m_mfdPanelIndex')
-        .uint8('m_mfdPanelIndexSecondaryPlayer')
-        .int8('m_suggestedGear');
+      .uint32le('m_buttonStatus')
+      .uint8('m_mfdPanelIndex')
+      .uint8('m_mfdPanelIndexSecondaryPlayer')
+      .int8('m_suggestedGear');
 
     this.data = this.fromBuffer(buffer) as PacketCarTelemetryData;
   }
