@@ -3,7 +3,7 @@ node_js:
   - 'lts/*'
   
 
-before_install: npm i
+before_install: npm i -g npm@6.1.0
 
 
 script:
