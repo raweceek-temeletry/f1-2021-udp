@@ -1,8 +1,10 @@
 language: node_js
 node_js:
   - 'lts/*'
+  
 
-before_install: dpkg --compare-versions `npm -v` ge 6 || npm i -g npm@^7
+before_install: npm i -g npm@7
+
 
 script:
   
