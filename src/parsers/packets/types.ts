@@ -24,6 +24,32 @@ export interface MotionData {
   m_roll: number;
 }
 
+export interface PacketCarDamageData {
+  m_header: PacketHeader;
+  m_carDamageData: CarDamageData[];
+}
+
+export interface CarDamageData {
+  m_tyresWear: TyreWear[];
+  m_tyresDamage: TyreDamage[];
+  m_brakesDamage: BrakeDamage[];
+  m_frontLeftWingDamage: number;
+  m_frontRightWingDamage: number;
+  m_rearWingDamage: number;
+  m_floorDamage: number;
+  m_diffuserDamage: number;
+  m_sidepodDamage: number;
+  m_drsFault: number;
+  m_gearBoxDamage: number;
+  m_engineDamage: number;
+  m_engineMGUHWear: number;
+  m_engineESWear: number;
+  m_engineCEWear: number;
+  m_engineICEWear: number;
+  m_engineMGUKWear: number;
+  m_engineTCWear: number;
+}
+
 export interface PacketSessionHistoryData {
   m_header: PacketHeader;
   m_carIdx: number;
@@ -57,31 +83,6 @@ export interface PacketLapData {
 }
 
 
-export interface PacketCarDamageData {
-  m_header: PacketHeader;
-  m_carDamageData: CarDamageData[];
-}
-
-export interface CarDamageData {
-  m_tyresWear: TyreWear[];
-  m_tyresDamage: TyreDamage[];
-  m_brakesDamage: BrakeDamage[];
-  m_frontLeftWingDamage: number;
-  m_frontRightWingDamage: number;
-  m_rearWingDamage: number;
-  m_floorDamage: number;
-  m_diffuserDamage: number;
-  m_sidepodDamage: number;
-  m_drsFault: number;
-  m_gearBoxDamage: number;
-  m_engineDamage: number;
-  m_engineMGUHWear: number;
-  m_engineESWear: number;
-  m_engineCEWear: number;
-  m_engineICEWear: number;
-  m_engineMGUKWear: number;
-  m_engineTCWear: number;
-}
 
 export interface BrakeDamage {
   m_brakesDamage: number;

@@ -6,7 +6,7 @@ import * as constantsTypes from './constants/types';
 import {PacketCarDamageParser, PacketCarSetupDataParser, PacketCarStatusDataParser, PacketCarTelemetryDataParser, PacketEventDataParser, PacketFinalClassificationDataParser, PacketFormatParser, PacketHeaderParser, PacketLapDataParser, PacketLobbyInfoDataParser, PacketMotionDataParser, PacketParticipantsDataParser, PacketSessionDataParser, PacketSessionHistoryDataParser} from './parsers/packets';
 
 import * as packetTypes from './parsers/packets/types';
-import {Address, Options, ParsedMessage} from './types';
+import {Address, Options, Parsed, ParsedMessage} from './types';
 
 
 const DEFAULT_PORT = 20777;
@@ -73,7 +73,7 @@ class F1TelemetryClient extends EventEmitter {
   static parsePacketHeader(
       buffer: Buffer, bigintEnabled: boolean
       // tslint:disable-next-line:no-any
-      ): any {
+      ): Parsed {
     const packetHeaderParser = new PacketHeaderParser(bigintEnabled);
     return packetHeaderParser.fromBuffer(buffer);
   }
