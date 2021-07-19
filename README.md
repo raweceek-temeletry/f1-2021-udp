@@ -33,8 +33,8 @@ $ yarn start
 ## Usage
 
 ```
-import { F1TelemetryClient, constants } from "f1-telemetry-client";
-// or: const { F1TelemetryClient, constants } = require('f1-telemetry-client');
+import { F1TelemetryClient, constants } from "f1-2021-udp";
+// or: const { F1TelemetryClient, constants } = require('f1-2021-udp');
 const { PACKETS } = constants;
 
 /*
