@@ -10,15 +10,15 @@ export class PacketFinalClassificationDataParser extends F1Parser {
     super();
 
     this.endianess('little')
-        .nest('m_header', {
-          type: new PacketHeaderParser(bigintEnabled),
-        })
-        .uint8('m_numCars')
-        .array('m_classificationData', {
-          length: 22,
-          type: new FinalClassificationDataParser(),
-        });
+      .nest('m_header', {
+        type: new PacketHeaderParser(bigintEnabled),
+      })
+      .uint8('m_numCars')
+      .array('m_classificationData', {
+        length: 22,
+        type: new FinalClassificationDataParser(),
+      });
 
-    this.data = this.fromBuffer(buffer);
+    this.data = this.fromBuffer(buffer) as PacketFinalClassificationData;
   }
 }

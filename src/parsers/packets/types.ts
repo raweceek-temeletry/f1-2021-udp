@@ -82,8 +82,6 @@ export interface PacketLapData {
   m_lapData: LapData[];
 }
 
-
-
 export interface BrakeDamage {
   m_brakesDamage: number;
 }

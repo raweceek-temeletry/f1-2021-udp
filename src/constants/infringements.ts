@@ -51,5 +51,4 @@ export const INFRINGEMENTS: {[index: number]: string} = {
   49: 'Retry penalty',
   50: 'Illegal time gain',
   51: 'Mandatory pitstop',
-
 };

@@ -8,6 +8,6 @@ export class F1Parser extends Parser {
    */
   // tslint:disable-next-line:no-any
   fromBuffer(buffer: Buffer): Parsed {
-    return this.parse(buffer);
+    return this.parse(buffer) as Parsed;
   }
 }

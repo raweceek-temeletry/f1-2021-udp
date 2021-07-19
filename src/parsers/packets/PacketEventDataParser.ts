@@ -39,13 +39,13 @@ export class PenaltyParser extends F1Parser {
     super();
 
     this.endianess('little')
-        .uint8('penaltyType')
-        .uint8('infringementType')
-        .uint8('vehicleIdx')
-        .uint8('otherVehicleIdx')
-        .uint8('time')
-        .uint8('lapNum')
-        .uint8('placesGained');
+      .uint8('penaltyType')
+      .uint8('infringementType')
+      .uint8('vehicleIdx')
+      .uint8('otherVehicleIdx')
+      .uint8('time')
+      .uint8('lapNum')
+      .uint8('placesGained');
   }
 }
 
@@ -53,10 +53,10 @@ export class SpeedTrapParser extends F1Parser {
   constructor() {
     super();
     this.endianess('little')
-        .uint8('vehicleIdx')
-        .floatle('speed')
-        .uint8('overallFastestInSession')
-        .uint8('driverFastestInSession');
+      .uint8('vehicleIdx')
+      .floatle('speed')
+      .uint8('overallFastestInSession')
+      .uint8('driverFastestInSession');
   }
 }
 
@@ -94,8 +94,8 @@ export class FlashbackParser extends F1Parser {
   constructor() {
     super();
     this.endianess('little')
-        .uint32('flashbackFrameIdentifier')
-        .floatle('flashbackSessionTime');
+      .uint32('flashbackFrameIdentifier')
+      .floatle('flashbackSessionTime');
   }
 }
 
@@ -113,14 +113,13 @@ export class PacketEventDataParser extends F1Parser {
     super();
 
     this.endianess('little')
-        .nest('m_header', {
-          type: new PacketHeaderParser(bigintEnabled),
-        })
-        .string('m_eventStringCode', {length: 4});
-
+      .nest('m_header', {
+        type: new PacketHeaderParser(bigintEnabled),
+      })
+      .string('m_eventStringCode', {length: 4});
 
     this.unpack2021Format(buffer, bigintEnabled);
-    this.data = this.fromBuffer(buffer);
+    this.data = this.fromBuffer(buffer) as PacketEventData;
   }
 
   unpack2021Format = (buffer: Buffer, bigintEnabled: boolean) => {
@@ -128,39 +127,28 @@ export class PacketEventDataParser extends F1Parser {
 
     if (eventStringCode === EVENT_CODES.FastestLap) {
       this.nest('FastestLap', {type: new FastestLapParser()});
-
     } else if (eventStringCode === EVENT_CODES.Retirement) {
       this.nest('Retirement', {type: new RetirementParser()});
-
     } else if (eventStringCode === EVENT_CODES.TeammateInPits) {
       this.nest('TeamMateInPits', {type: new TeamMateInPitsParser()});
-
     } else if (eventStringCode === EVENT_CODES.RaceWinner) {
       this.nest('RaceWinner', {type: new RaceWinnerParser()});
-
     } else if (eventStringCode === EVENT_CODES.PenaltyIssued) {
       this.nest('Penalty', {type: new PenaltyParser()});
-
     } else if (eventStringCode === EVENT_CODES.SpeedTrapTriggered) {
       this.nest('SpeedTrap', {type: new SpeedTrapParser()});
-
     } else if (eventStringCode === EVENT_CODES.StartLights) {
       this.nest('StartLights', {type: new StartLightsParser()});
-
     } else if (eventStringCode === EVENT_CODES.LightsOut) {
       this.nest('StartLightsOut', {type: new StartLightsOutParser()});
-
     } else if (eventStringCode === EVENT_CODES.DriveThroughServed) {
-      this.nest(
-          'DriveThroughPenaltyServed',
-          {type: new DriveThroughPenaltyServedParser()});
-
+      this.nest('DriveThroughPenaltyServed', {
+        type: new DriveThroughPenaltyServedParser(),
+      });
     } else if (eventStringCode === EVENT_CODES.StopGoServed) {
       this.nest('StopGoPenaltyServed', {type: new StopGoPenaltyServedParser()});
-
     } else if (eventStringCode === EVENT_CODES.Flashback) {
       this.nest('Flashback', {type: new FlashbackParser()});
-
     } else if (eventStringCode === EVENT_CODES.ButtonStatus) {
       this.nest('Buttons', {type: new ButtonsParser()});
     }
@@ -168,11 +156,11 @@ export class PacketEventDataParser extends F1Parser {
 
   getEventStringCode = (buffer: Buffer, bigintEnabled: boolean) => {
     const headerParser = new Parser()
-                             .endianess('little')
-                             .nest('m_header', {
-                               type: new PacketHeaderParser(bigintEnabled),
-                             })
-                             .string('m_eventStringCode', {length: 4});
+      .endianess('little')
+      .nest('m_header', {
+        type: new PacketHeaderParser(bigintEnabled),
+      })
+      .string('m_eventStringCode', {length: 4});
     const {m_eventStringCode} = headerParser.parse(buffer);
     return m_eventStringCode;
   };

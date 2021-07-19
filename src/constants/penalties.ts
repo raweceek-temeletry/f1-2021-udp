@@ -17,5 +17,4 @@ export const PENALTIES: {[index: number]: string} = {
   15: 'This and previous lap invalidated without reason',
   16: 'Retired',
   17: 'Black flag timer',
-
 };
