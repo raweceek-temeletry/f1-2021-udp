@@ -98,12 +98,7 @@ Licensed under the MIT License.
 # Data Output from F1 2021
 
 ## Contents  
-- [F1 2021 UDP Telemetry Client](#f1-2021-udp-telemetry-client)
-  - [Installing](#installing)
-  - [Running the playground](#running-the-playground)
-  - [Usage](#usage)
-  - [Documentation](#documentation)
-  - [License](#license)
+
 - [Data Output from F1 2021](#data-output-from-f1-2021)
   - [Contents](#contents)
   - [Overview](#overview)
