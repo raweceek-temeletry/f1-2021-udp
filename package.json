@@ -1,6 +1,6 @@
 {
   "name": "f1-2021-udp",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
