@@ -1,10 +1,13 @@
 # F1 2021 UDP Telemetry Client
 
+<a href="https://www.npmjs.com/package/f1-2021-udp"><img src="https://img.shields.io/npm/v/f1-2021-udp.svg"></a><a href='https://app.travis-ci.com/github/PrimeGoose/f1-2021-udp'><img src='https://app.travis-ci.com/PrimeGoose/f1-2021-udp.svg?branch=main'></a><img src="https://img.shields.io/github/license/primegoose/f1-2021-udp.svg"><a href="https://snyk.io/test/github/primegoose/f1-2021-udp?targetFile=package.json"><img src="https://snyk.io/test/github/primegoose/f1-2021-udp/badge.svg?targetFile=package.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/primegoose/f1-2021-udp?targetFile=package.json" style="max-width:100%;"></a>
+
 ![](/logo.png)
+
+This is a TypeScript UDP client and telemetry parser for Codemaster's F1 2021 game that enables the consumption of such information.
 
 The F1 series of games support the outputting of key game data via a UDP data stream. This data can be interpreted by external apps or connected peripherals for a range of different uses, including providing additional telemetry information, customised HUD displays, motion platform hardware support or providing force feedback data for custom steering wheels.
 
-This is a TypeScript UDP client and telemetry parser for Codemaster's F1 2021 game that enables the consumption of such information.
 
 ## Installing
 
@@ -32,20 +35,26 @@ $ yarn start
 
 ## Usage
 
-```
+```js
 import { F1TelemetryClient, constants } from "f1-2021-udp";
 // or: const { F1TelemetryClient, constants } = require('f1-2021-udp');
 const { PACKETS } = constants;
 
 /*
 *   'port' is optional, defaults to 20777
-*   'bigintEnabled' is optional, setting it to false makes the parser skip bigint values,
-*                   defaults to true
-*   'forwardAddresses' is optional, it's an array of Address objects to forward unparsed telemetry to. each address object is comprised of a port and an optional ip address
-*                   defaults to undefined
-*   'skipParsing' is optional, setting it to true will make the client not parse and emit content. You can consume telemetry data using forwardAddresses instead.
-*                   defaults to false
+
+*   'bigintEnabled' is optional, defaults to true
+     setting it to false makes the parser skip bigint values
+
+*   'forwardAddresses' is optional, defaults to undefined
+    it's an array of Address objects to forward unparsed telemetry to.
+    each address object is comprised of a port and an optional ip address
+
+*   'skipParsing' is optional, defaults to false
+    setting it to true will make the client not parse and emit content.
+    You can consume telemetry data using forwardAddresses instead.              
 */
+
 const client = new F1TelemetryClient({ port: 20777 });
 client.on(PACKETS.event, console.log);
 client.on(PACKETS.motion, console.log);
@@ -59,7 +68,6 @@ client.on(PACKETS.finalClassification, console.log);
 client.on(PACKETS.lobbyInfo, console.log);
 client.on(PACKETS.history, console.log);
 client.on(PACKETS.carDamage, console.log);
-
 
 // to start listening:
 client.start();
