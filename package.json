@@ -1,6 +1,6 @@
 {
   "name": "f1-2021-udp",
-  "version": "1.1.0-beta-0",
+  "version": "1.1.0-beta-1",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
@@ -12,15 +12,15 @@
     "url": "https://github.com/PrimeGoose/f1-2021-udp"
   },
   "dependencies": {
-    "binary-parser": "^1.9.1",
-    "struct": "^0.0.12",
-    "@types/binary-parser": "^1.5.0",
-    "@types/node": "^14.17.5",
-    "gts": "^3.1.0",
-    "typescript": "^4.0.3"
+    "binary-parser": "1.9.2",
+    "struct": "^0.0.12"
   },
   "devDependencies": {
-    "eslint": "~7.0.0",
+    "@types/node": "^14.17.5",
+    "@types/binary-parser": "1.5.1",
+    "gts": "^3.1.0",
+    "typescript": "^4.0.3",
+    "eslint": "7.31.0",
     "eslint-plugin-node": "^11.1.0",
     "husky": "7.0.1",
     "lint-staged": "11.0.1"
@@ -76,6 +76,6 @@
     "videogame"
   ],
   "engines": {
-    "node": ">=8.3.0"
+    "node": ">=10"
   }
 }
