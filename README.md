@@ -20,23 +20,6 @@ The F1 series of games support the outputting of key game data via a UDP data st
 $ npm install f1-2021-udp
 ```
 
-or
-
-```
-$ yarn add f1-2021-udp
-```
-
-## Running the playground
-
-```
-$ npm run start
-```
-
-or
-
-```
-$ yarn start
-```
 
 ## Usage
 
