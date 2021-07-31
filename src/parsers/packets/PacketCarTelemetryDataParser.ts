@@ -19,7 +19,6 @@ export class PacketCarTelemetryDataParser extends F1Parser {
         type: new CarTelemetryDataParser(),
       })
 
-      .uint32le('m_buttonStatus')
       .uint8('m_mfdPanelIndex')
       .uint8('m_mfdPanelIndexSecondaryPlayer')
       .int8('m_suggestedGear');
