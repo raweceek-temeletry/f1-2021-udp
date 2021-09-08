@@ -94,7 +94,7 @@ export class FlashbackParser extends F1Parser {
   constructor() {
     super();
     this.endianess('little')
-      .uint32('flashbackFrameIdentifier')
+      .uint32le('flashbackFrameIdentifier')
       .floatle('flashbackSessionTime');
   }
 }
@@ -102,7 +102,7 @@ export class FlashbackParser extends F1Parser {
 export class ButtonsParser extends F1Parser {
   constructor() {
     super();
-    this.endianess('little').uint32('m_buttonStatus');
+    this.endianess('little').uint32le('m_buttonStatus');
   }
 }
 

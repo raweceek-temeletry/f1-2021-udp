@@ -4,8 +4,8 @@ export class LapDataParser extends F1Parser {
   constructor() {
     super();
     this.endianess('little')
-      .uint32('m_lastLapTimeInMS')
-      .uint32('m_currentLapTimeInMS')
+      .uint32le('m_lastLapTimeInMS')
+      .uint32le('m_currentLapTimeInMS')
       .uint16le('m_sector1TimeInMS')
       .uint16le('m_sector2TimeInMS')
       .floatle('m_lapDistance')
@@ -25,8 +25,8 @@ export class LapDataParser extends F1Parser {
       .uint8('m_driverStatus')
       .uint8('m_resultStatus')
       .uint8('m_pitLaneTimerActive')
-      .uint16('m_pitLaneTimeInLaneInMS')
-      .uint16('m_pitStopTimerInMS')
+      .uint16le('m_pitLaneTimeInLaneInMS')
+      .uint16le('m_pitStopTimerInMS')
       .uint8('m_pitStopShouldServePen');
   }
 }
