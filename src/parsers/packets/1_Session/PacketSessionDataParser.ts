@@ -1,7 +1,7 @@
-import {F1Parser} from '../F1Parser';
+import {F1Parser} from '../../F1Parser';
 import {MarshalZoneParser} from './MarshalZoneParser';
-import {PacketHeaderParser} from './PacketHeaderParser';
-import {PacketSessionData} from './types';
+import {PacketHeaderParser} from '../PacketHeaderParser';
+import {PacketSessionData} from '../types/types';
 import {WeatherForecastSampleParser} from './WeatherForecastSampleParser';
 
 export class PacketSessionDataParser extends F1Parser {

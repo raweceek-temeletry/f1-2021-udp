@@ -1,10 +1,10 @@
 import {Parser} from 'binary-parser';
 
-import {EVENT_CODES} from '../../constants';
-import {F1Parser} from '../F1Parser';
+import {EVENT_CODES} from '../../../constants';
+import {F1Parser} from '../../F1Parser';
 
-import {PacketHeaderParser} from './PacketHeaderParser';
-import {PacketEventData} from './types';
+import {PacketHeaderParser} from '../PacketHeaderParser';
+import {PacketEventData} from '../types/types';
 
 export class FastestLapParser extends F1Parser {
   constructor() {

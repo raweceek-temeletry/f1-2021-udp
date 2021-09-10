@@ -1,31 +1,32 @@
-import {PacketCarDamageParser} from './PacketCarDamageDataParser';
-import {PacketCarSetupDataParser} from './PacketCarSetupDataParser';
-import {PacketCarStatusDataParser} from './PacketCarStatusDataParser';
-import {PacketCarTelemetryDataParser} from './PacketCarTelemetryDataParser';
-import {PacketEventDataParser} from './PacketEventDataParser';
-import {PacketFinalClassificationDataParser} from './PacketFinalClassificationDataParser';
 import {PacketFormatParser} from './PacketFormatParser';
 import {PacketHeaderParser} from './PacketHeaderParser';
-import {PacketLapDataParser} from './PacketLapDataParser';
-import {PacketLobbyInfoDataParser} from './PacketLobbyInfoDataParser';
-import {PacketMotionDataParser} from './PacketMotionDataParser';
-import {PacketParticipantsDataParser} from './PacketParticipantsDataParser';
-import {PacketSessionDataParser} from './PacketSessionDataParser';
-import {PacketSessionHistoryDataParser} from './PacketSessionHistoryData';
+
+import {PacketMotionDataParser} from './0_Motion/PacketMotionDataParser';
+import {PacketSessionDataParser} from './1_Session/PacketSessionDataParser';
+import {PacketLapDataParser} from './2_LapData/PacketLapDataParser';
+import {PacketEventDataParser} from './3_Event/PacketEventDataParser';
+import {PacketParticipantsDataParser} from './4_Participants/PacketParticipantsDataParser';
+import {PacketCarSetupDataParser} from './5_CarSetups/PacketCarSetupDataParser';
+import {PacketCarTelemetryDataParser} from './6_CarTelemetry/PacketCarTelemetryDataParser';
+import {PacketCarStatusDataParser} from './7_CarStatus/PacketCarStatusDataParser';
+import {PacketFinalClassificationDataParser} from './8_FinalClassification/PacketFinalClassificationDataParser';
+import {PacketLobbyInfoDataParser} from './9_Lobby Info/PacketLobbyInfoDataParser';
+import {PacketCarDamageParser} from './10_CarDamage/PacketCarDamageDataParser';
+import {PacketSessionHistoryDataParser} from './11_SessionHistory/PacketSessionHistoryData';
 
 export {
-  PacketCarDamageParser,
-  PacketCarSetupDataParser,
-  PacketCarStatusDataParser,
-  PacketCarTelemetryDataParser,
-  PacketEventDataParser,
-  PacketFinalClassificationDataParser,
   PacketFormatParser,
   PacketHeaderParser,
-  PacketLapDataParser,
-  PacketLobbyInfoDataParser,
   PacketMotionDataParser,
-  PacketParticipantsDataParser,
   PacketSessionDataParser,
+  PacketLapDataParser,
+  PacketEventDataParser,
+  PacketParticipantsDataParser,
+  PacketCarSetupDataParser,
+  PacketCarTelemetryDataParser,
+  PacketCarStatusDataParser,
+  PacketFinalClassificationDataParser,
+  PacketLobbyInfoDataParser,
+  PacketCarDamageParser,
   PacketSessionHistoryDataParser,
 };

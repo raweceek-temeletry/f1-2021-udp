@@ -29,7 +29,7 @@ import {
   TyreStintHistoryData,
   TyreWear,
   WeatherForecastSample,
-} from './parsers/packets/types';
+} from './parsers/packets/types/types';
 
 export interface Options {
   port?: number;

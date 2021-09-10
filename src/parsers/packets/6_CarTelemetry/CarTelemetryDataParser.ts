@@ -1,5 +1,5 @@
 import {Parser} from 'binary-parser';
-import {F1Parser} from '../F1Parser';
+import {F1Parser} from '../../F1Parser';
 
 export class CarTelemetryDataParser extends F1Parser {
   constructor() {

@@ -1,8 +1,8 @@
 import {Parser} from 'binary-parser';
-import {F1Parser} from '../F1Parser';
+import {F1Parser} from '../../F1Parser';
 import {CarMotionDataParser} from './CarMotionDataParser';
-import {PacketHeaderParser} from './PacketHeaderParser';
-import {PacketMotionData} from './types';
+import {PacketHeaderParser} from '../PacketHeaderParser';
+import {PacketMotionData} from '../types/types';
 
 export class PacketMotionDataParser extends F1Parser {
   data: PacketMotionData;

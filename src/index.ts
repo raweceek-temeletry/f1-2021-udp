@@ -19,7 +19,7 @@ import {
   PacketSessionHistoryDataParser,
 } from './parsers/packets';
 
-import * as packetTypes from './parsers/packets/types';
+import * as packetTypes from './parsers/packets/types/types';
 import {Address, Options, Parsed, ParsedMessage} from './types';
 
 const DEFAULT_PORT = 20777;

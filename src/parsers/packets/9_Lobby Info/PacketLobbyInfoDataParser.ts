@@ -1,7 +1,7 @@
-import {F1Parser} from '../F1Parser';
+import {F1Parser} from '../../F1Parser';
 import {LobbyInfoDataParser} from './LobbyInfoDataParser';
-import {PacketHeaderParser} from './PacketHeaderParser';
-import {PacketLobbyInfoData} from './types';
+import {PacketHeaderParser} from '../PacketHeaderParser';
+import {PacketLobbyInfoData} from '../types/types';
 
 export class PacketLobbyInfoDataParser extends F1Parser {
   data: PacketLobbyInfoData;

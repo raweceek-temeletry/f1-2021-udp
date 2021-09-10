@@ -1,8 +1,8 @@
-import {F1Parser} from '../F1Parser';
-import {PacketCarDamageData} from '../packets/types';
+import {F1Parser} from '../../F1Parser';
+import {PacketCarDamageData} from '../types/types';
 
 import {CarDamageDataParser} from './CarDamageDataParser';
-import {PacketHeaderParser} from './PacketHeaderParser';
+import {PacketHeaderParser} from '../PacketHeaderParser';
 
 export class PacketCarDamageParser extends F1Parser {
   data: PacketCarDamageData;
