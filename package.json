@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@types/fs-extra": "^9.0.12",
-    "binary-parser": "1.9.2",
-    "struct": "^0.0.12"
+    "binary-parser": "1.9.2"
+    
   },
   "devDependencies": {
     "@types/binary-parser": "1.5.1",
@@ -90,6 +90,6 @@
     "videogame"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   }
 }

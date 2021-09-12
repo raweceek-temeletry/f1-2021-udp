@@ -1,12 +1,12 @@
 // import * as dgram from 'dgram';
-import {F1TelemetryClient,constants} from '..';
+import {F1TelemetryClient, constants} from '..';
 const {PACKETS} = constants;
 
-const client = new F1TelemetryClient({ port: 20777 });
+const client = new F1TelemetryClient({port: 20777});
 
-client.on(PACKETS.session,x => {
-    console.clear();
-    console.log(x);
-})
+client.on(PACKETS.session, x => {
+  console.clear();
+  console.log(x);
+});
 
 client.start();
