@@ -14,6 +14,7 @@ socket.bind(5550);
 
 socket.on('message', msg => {
   const parsedmsg = F1TelemetryClient.parseBufferMessage(msg);
+  console.clear();
   console.log(parsedmsg?.packetData?.data);
 });
 

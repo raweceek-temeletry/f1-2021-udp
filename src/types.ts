@@ -29,7 +29,7 @@ import {
   TyreStintHistoryData,
   TyreWear,
   WeatherForecastSample,
-} from './parsers/packets/types';
+} from './parsers/packets/types/types';
 
 export interface Options {
   port?: number;
@@ -62,7 +62,81 @@ export interface ParsedMessage {
     | null;
 }
 
+export interface FastestLap {
+  fastestLap: number;
+  vehicleIdx: number;
+  lapTime: number;
+}
+export interface Retirement {
+  vehicleIdx: number;
+}
+
+export interface TeamMateInPits {
+  vehicleIdx: number;
+}
+
+export interface eventPackage {
+  FastestLap: object;
+}
+
+export interface RaceWinner {
+  vehicleIdx: number;
+}
+export interface Penalty {
+  vehicleIdx: number;
+  otherVehicleIdx: number;
+  infringementType: string;
+  penaltyType: string;
+  time: number;
+  lapNum: number;
+  placesGained: number;
+}
+
+export interface SpeedTrap {
+  vehicleIdx: number;
+  speed: number;
+  overallFastestInSession: number;
+  driverFastestInSession: number;
+}
+
+export interface StartLights {
+  numLights: number;
+}
+
+export interface StartLightsOut {
+  numLights: number;
+}
+
+export interface DriveThroughPenaltyServed {
+  vehicleIdx: number;
+}
+
+export interface StopGoPenaltyServed {
+  vehicleIdx: number;
+}
+
+export interface Flashback {
+  flashbackFrameIdentifier: number;
+  flashbackSessionTime: number;
+}
+export interface Buttons {
+  m_buttonStatus: number;
+}
+
 export interface Parsed {
+  Buttons: Buttons;
+
+  Flashback: Flashback;
+  StopGoPenaltyServed: StopGoPenaltyServed;
+  DriveThroughPenaltyServed: DriveThroughPenaltyServed;
+  StartLightsOut: number;
+  StartLights: StartLights;
+  FastestLap: FastestLap;
+  Penalty: Penalty;
+  SpeedTrap: SpeedTrap;
+  RaceWinner: RaceWinner;
+  Retirement: Retirement;
+  TeamMateInPits: TeamMateInPits;
   m_header: PacketHeader;
   m_packetId: number;
   m_carIdx: number;
