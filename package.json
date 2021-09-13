@@ -1,6 +1,6 @@
 {
   "name": "f1-2021-udp",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
@@ -76,11 +76,8 @@
     "udp",
     "parser",
     "grand prix",
-    "racing",
     "sim racing",
     "e-sports",
-    "gaming",
-    "f1",
     "PlayStation",
     "xbox",
     "PC"
