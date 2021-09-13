@@ -19,8 +19,23 @@ import {
   PacketSessionHistoryDataParser,
 } from './parsers/packets';
 
-import * as packetTypes from './parsers/packets/types/types';
-import {Address, Options, Parsed, ParsedMessage} from './types';
+import {
+  PacketMotionData,
+  PacketSessionData,
+  PacketLapData,
+  PacketEventData,
+  PacketParticipantsData,
+  PacketCarSetupData,
+  PacketCarTelemetryData,
+  PacketCarStatusData,
+  PacketFinalClassificationData,
+  PacketLobbyInfoData,
+  PacketCarDamageData,
+  PacketSessionHistoryData,
+} from './parsers/packets/types';
+
+import {PacketHeader} from './parsers/packets/types/index';
+import {Address, Options, ParsedMessage} from './types';
 
 const DEFAULT_PORT = 20777;
 const FORWARD_ADDRESSES = undefined;
@@ -62,10 +77,11 @@ class F1TelemetryClient extends EventEmitter {
     message: Buffer,
     bigintEnabled = false
   ): ParsedMessage | undefined {
-    const {m_packetId} = F1TelemetryClient.parsePacketHeader(
+    const m_header = F1TelemetryClient.parsePacketHeader(
       message,
       bigintEnabled
     );
+    const {m_packetId} = m_header as PacketHeader;
 
     const parser = F1TelemetryClient.getParserByPacketId(m_packetId);
 
@@ -89,10 +105,23 @@ class F1TelemetryClient extends EventEmitter {
   static parsePacketHeader(
     buffer: Buffer,
     bigintEnabled: boolean
-    // tslint:disable-next-line:no-any
-  ): Parsed {
+  ):
+    | PacketMotionData
+    | PacketSessionData
+    | PacketLapData
+    | PacketEventData
+    | PacketParticipantsData
+    | PacketCarSetupData
+    | PacketCarTelemetryData
+    | PacketCarStatusData
+    | PacketFinalClassificationData
+    | PacketLobbyInfoData
+    | PacketCarDamageData
+    | PacketSessionHistoryData
+    | PacketHeader
+    | null {
     const packetHeaderParser = new PacketHeaderParser(bigintEnabled);
-    return packetHeaderParser.fromBuffer(buffer) as Parsed;
+    return packetHeaderParser.fromBuffer(buffer);
   }
 
   /**
@@ -250,7 +279,6 @@ export {
   F1TelemetryClient,
   constants,
   constantsTypes,
-  packetTypes,
   DEFAULT_PORT,
   BIGINT_ENABLED,
   FORWARD_ADDRESSES,

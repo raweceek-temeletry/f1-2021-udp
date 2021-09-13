@@ -1,7 +1,7 @@
 import {F1Parser} from '../../F1Parser';
 import {FinalClassificationDataParser} from './FinalClassificationDataParser';
 import {PacketHeaderParser} from '../PacketHeaderParser';
-import {PacketFinalClassificationData} from '../types/types';
+import {PacketFinalClassificationData} from '../8_FinalClassification/types';
 
 export class PacketFinalClassificationDataParser extends F1Parser {
   data: PacketFinalClassificationData;

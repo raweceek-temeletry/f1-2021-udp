@@ -1,5 +1,4 @@
 import {F1TelemetryClient, constants} from '..';
-import {Parsed} from '../types';
 const {PACKETS} = constants;
 const fsx = require('fs-extra');
 const fs = require('fs');
@@ -14,7 +13,7 @@ fsx.ensureFile('example-outputs/events.txt', (error: string) => {
   console.log(error);
 });
 
-client.on(PACKETS.event, (eventPackage: Parsed) => {
+client.on(PACKETS.event, eventPackage => {
   let data = '';
   console.clear();
   console.log(eventPackage);

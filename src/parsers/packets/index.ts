@@ -10,7 +10,7 @@ import {PacketCarSetupDataParser} from './5_CarSetups/PacketCarSetupDataParser';
 import {PacketCarTelemetryDataParser} from './6_CarTelemetry/PacketCarTelemetryDataParser';
 import {PacketCarStatusDataParser} from './7_CarStatus/PacketCarStatusDataParser';
 import {PacketFinalClassificationDataParser} from './8_FinalClassification/PacketFinalClassificationDataParser';
-import {PacketLobbyInfoDataParser} from './9_Lobby Info/PacketLobbyInfoDataParser';
+import {PacketLobbyInfoDataParser} from './9_LobbyInfo/PacketLobbyInfoDataParser';
 import {PacketCarDamageParser} from './10_CarDamage/PacketCarDamageDataParser';
 import {PacketSessionHistoryDataParser} from './11_SessionHistory/PacketSessionHistoryData';
 

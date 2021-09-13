@@ -1,5 +1,5 @@
 import {F1Parser} from '../../F1Parser';
-import {PacketCarDamageData} from '../types/types';
+import {PacketCarDamageData} from '../10_CarDamage/types';
 
 import {CarDamageDataParser} from './CarDamageDataParser';
 import {PacketHeaderParser} from '../PacketHeaderParser';

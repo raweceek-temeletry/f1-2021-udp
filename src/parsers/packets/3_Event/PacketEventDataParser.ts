@@ -4,7 +4,7 @@ import {EVENT_CODES} from '../../../constants';
 import {F1Parser} from '../../F1Parser';
 
 import {PacketHeaderParser} from '../PacketHeaderParser';
-import {PacketEventData} from '../types/types';
+import {PacketEventData} from '../3_Event/EventPacketTypes';
 
 export class FastestLapParser extends F1Parser {
   constructor() {

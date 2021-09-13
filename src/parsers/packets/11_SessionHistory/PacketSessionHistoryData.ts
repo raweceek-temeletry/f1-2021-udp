@@ -2,7 +2,7 @@ import {F1Parser} from '../../F1Parser';
 
 import {LapHistoryDataParser} from './LapHistoryData';
 import {PacketHeaderParser} from '../PacketHeaderParser';
-import {PacketSessionHistoryData} from '../types/types';
+import {PacketSessionHistoryData} from '../11_SessionHistory/types';
 import {TyreStintHistoryDataParser} from './TyreStintHistoryData';
 
 export class PacketSessionHistoryDataParser extends F1Parser {
