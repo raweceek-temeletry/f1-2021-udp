@@ -12,7 +12,7 @@ export interface PacketHeader {
 import {PacketMotionData} from '../../packets/0_Motion/types';
 import {PacketSessionData} from '../../packets/1_Session/types';
 import {PacketLapData} from '../../packets/2_LapData/types';
-import {PacketEventData} from '../../packets/3_Event/EventPacketTypes';
+import {PacketEventData} from '../3_Event/types';
 import {PacketParticipantsData} from '../../packets/4_Participants/types';
 import {PacketCarSetupData} from '../../packets/5_CarSetups/types';
 import {PacketCarTelemetryData} from '../../packets/6_CarTelemetry/types';
