@@ -11,6 +11,7 @@ import {PacketFinalClassificationData} from './packets/8_FinalClassification/typ
 import {PacketLobbyInfoData} from './packets/9_LobbyInfo/types';
 import {PacketCarDamageData} from './packets/10_CarDamage/types';
 import {PacketSessionHistoryData} from './packets/11_SessionHistory/types';
+import {PacketHeader} from './packets/types';
 export class F1Parser extends Parser {
   /**
    *
@@ -31,7 +32,7 @@ export class F1Parser extends Parser {
     | PacketLobbyInfoData
     | PacketCarDamageData
     | PacketSessionHistoryData
-    | null {
+    | PacketHeader {
     return this.parse(buffer);
   }
 }

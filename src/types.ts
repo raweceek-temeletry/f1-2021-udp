@@ -28,18 +28,22 @@ export interface Address {
 
 export interface ParsedMessage {
   packetID: string;
-  packetData:
-    | PacketSessionDataParser
-    | PacketMotionDataParser
-    | PacketCarDamageParser
-    | PacketSessionHistoryDataParser
-    | PacketLapDataParser
-    | PacketEventDataParser
-    | PacketParticipantsDataParser
-    | PacketCarSetupDataParser
-    | PacketCarTelemetryDataParser
-    | PacketCarStatusDataParser
-    | PacketFinalClassificationDataParser
-    | PacketLobbyInfoDataParser
-    | null;
+  packetData: PacketData;
 }
+
+type PacketData =
+  | PacketSessionDataParser
+  | PacketMotionDataParser
+  | PacketCarDamageParser
+  | PacketSessionHistoryDataParser
+  | PacketLapDataParser
+  | PacketEventDataParser
+  | PacketParticipantsDataParser
+  | PacketCarSetupDataParser
+  | PacketCarTelemetryDataParser
+  | PacketCarStatusDataParser
+  | PacketFinalClassificationDataParser
+  | PacketLobbyInfoDataParser
+  | null;
+
+export {PacketData};

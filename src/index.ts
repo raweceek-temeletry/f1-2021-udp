@@ -19,23 +19,8 @@ import {
   PacketSessionHistoryDataParser,
 } from './parsers/packets';
 
-import {
-  PacketMotionData,
-  PacketSessionData,
-  PacketLapData,
-  PacketEventData,
-  PacketParticipantsData,
-  PacketCarSetupData,
-  PacketCarTelemetryData,
-  PacketCarStatusData,
-  PacketFinalClassificationData,
-  PacketLobbyInfoData,
-  PacketCarDamageData,
-  PacketSessionHistoryData,
-} from './parsers/packets/types';
-
 import {PacketHeader} from './parsers/packets/types/index';
-import {Address, Options, ParsedMessage} from './types';
+import {Address, Options, ParsedMessage, PacketData} from './types';
 
 const DEFAULT_PORT = 20777;
 const FORWARD_ADDRESSES = undefined;
@@ -77,20 +62,33 @@ class F1TelemetryClient extends EventEmitter {
     message: Buffer,
     bigintEnabled = false
   ): ParsedMessage | undefined {
-    const m_header = F1TelemetryClient.parsePacketHeader(
+    const header: PacketHeader = F1TelemetryClient.parsePacketHeader(
       message,
       bigintEnabled
     );
-    const {m_packetId} = m_header as PacketHeader;
+    const {m_packetId} = header as PacketHeader;
 
-    const parser = F1TelemetryClient.getParserByPacketId(m_packetId);
+    const parser:
+      | typeof PacketCarDamageParser
+      | typeof PacketCarSetupDataParser
+      | typeof PacketCarStatusDataParser
+      | typeof PacketCarTelemetryDataParser
+      | typeof PacketEventDataParser
+      | typeof PacketFinalClassificationDataParser
+      | typeof PacketLapDataParser
+      | typeof PacketLobbyInfoDataParser
+      | typeof PacketMotionDataParser
+      | typeof PacketParticipantsDataParser
+      | typeof PacketSessionDataParser
+      | typeof PacketSessionHistoryDataParser
+      | null = F1TelemetryClient.getParserByPacketId(m_packetId);
 
     if (!parser) {
       return;
     }
 
-    const packetData = new parser(message, bigintEnabled);
-    const packetID = Object.keys(constants.PACKETS)[m_packetId];
+    const packetData: PacketData = new parser(message, bigintEnabled);
+    const packetID: string = Object.keys(constants.PACKETS)[m_packetId];
 
     // emit parsed message
     return {packetData, packetID};
@@ -105,23 +103,11 @@ class F1TelemetryClient extends EventEmitter {
   static parsePacketHeader(
     buffer: Buffer,
     bigintEnabled: boolean
-  ):
-    | PacketMotionData
-    | PacketSessionData
-    | PacketLapData
-    | PacketEventData
-    | PacketParticipantsData
-    | PacketCarSetupData
-    | PacketCarTelemetryData
-    | PacketCarStatusData
-    | PacketFinalClassificationData
-    | PacketLobbyInfoData
-    | PacketCarDamageData
-    | PacketSessionHistoryData
-    | PacketHeader
-    | null {
-    const packetHeaderParser = new PacketHeaderParser(bigintEnabled);
-    return packetHeaderParser.fromBuffer(buffer);
+  ): PacketHeader {
+    const packetHeaderParser: PacketHeaderParser = new PacketHeaderParser(
+      bigintEnabled
+    );
+    return packetHeaderParser.fromBuffer(buffer) as PacketHeader;
   }
 
   /**
@@ -129,9 +115,10 @@ class F1TelemetryClient extends EventEmitter {
    * @param {Number} packetFormat
    * @param {Number} packetId
    */
-  static getPacketSize(packetFormat: number, packetId: number) {
+  static getPacketSize(packetFormat: number, packetId: number): number {
     const {PACKET_SIZES} = constants;
-    const packetValues = Object.values(PACKET_SIZES);
+    const packetValues: {[index: number]: number}[] =
+      Object.values(PACKET_SIZES);
     return packetValues[packetId][packetFormat];
   }
 
@@ -139,11 +126,27 @@ class F1TelemetryClient extends EventEmitter {
    *
    * @param {Number} packetId
    */
-  static getParserByPacketId(packetId: number) {
+
+  static getParserByPacketId(
+    packetId: number
+  ):
+    | typeof PacketCarDamageParser
+    | typeof PacketCarSetupDataParser
+    | typeof PacketCarStatusDataParser
+    | typeof PacketCarTelemetryDataParser
+    | typeof PacketEventDataParser
+    | typeof PacketFinalClassificationDataParser
+    | typeof PacketLapDataParser
+    | typeof PacketLobbyInfoDataParser
+    | typeof PacketMotionDataParser
+    | typeof PacketParticipantsDataParser
+    | typeof PacketSessionDataParser
+    | typeof PacketSessionHistoryDataParser
+    | null {
     const {PACKETS} = constants;
 
-    const packetKeys = Object.keys(PACKETS);
-    const packetType = packetKeys[packetId];
+    const packetKeys: string[] = Object.keys(PACKETS);
+    const packetType: string = packetKeys[packetId];
 
     switch (packetType) {
       case PACKETS.carDamage:
@@ -191,16 +194,14 @@ class F1TelemetryClient extends EventEmitter {
    *
    * @param {Buffer} message
    */
-  handleMessage(message: Buffer) {
+  handleMessage(message: Buffer): void {
     if (this.forwardAddresses) {
       // bridge message
       this.bridgeMessage(message);
     }
 
-    const parsedMessage = F1TelemetryClient.parseBufferMessage(
-      message,
-      this.bigintEnabled
-    );
+    const parsedMessage: ParsedMessage | undefined =
+      F1TelemetryClient.parseBufferMessage(message, this.bigintEnabled);
 
     if (!parsedMessage || !parsedMessage.packetData) {
       return;
@@ -214,7 +215,7 @@ class F1TelemetryClient extends EventEmitter {
    *
    * @param {Buffer} message
    */
-  bridgeMessage(message: Buffer) {
+  bridgeMessage(message: Buffer): void {
     if (!this.socket) {
       throw new Error('Socket is not initialized');
     }
@@ -235,24 +236,24 @@ class F1TelemetryClient extends EventEmitter {
   /**
    * Method to start listening for packets
    */
-  start() {
+  start(): void {
     if (!this.socket) {
       return;
     }
 
-    this.socket.on('listening', () => {
+    this.socket.on('listening', (): void => {
       if (!this.socket) {
         return;
       }
 
-      const address = this.socket.address() as AddressInfo;
+      const address: AddressInfo = this.socket.address();
       console.log(
         `UDP Client listening on ${address.address}:${address.port} 🏎`
       );
       this.socket.setBroadcast(true);
     });
 
-    this.socket.on('message', m => this.handleMessage(m));
+    this.socket.on('message', (m: Buffer): void => this.handleMessage(m));
     this.socket.bind({
       port: this.port,
       address: this.address,
@@ -263,12 +264,12 @@ class F1TelemetryClient extends EventEmitter {
   /**
    * Method to close the client
    */
-  stop() {
+  stop(): void {
     if (!this.socket) {
       return;
     }
 
-    return this.socket.close(() => {
+    return this.socket.close((): void => {
       console.log('UDP Client closed 🏁');
       this.socket = undefined;
     });
