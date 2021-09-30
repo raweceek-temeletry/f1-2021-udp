@@ -18,6 +18,20 @@ import {
   PacketSessionDataParser,
   PacketSessionHistoryDataParser,
 } from './parsers/packets';
+import {
+  PacketMotionData,
+  PacketSessionData,
+  PacketLapData,
+  PacketEventData,
+  PacketParticipantsData,
+  PacketCarSetupData,
+  PacketCarTelemetryData,
+  PacketCarStatusData,
+  PacketFinalClassificationData,
+  PacketLobbyInfoData,
+  PacketCarDamageData,
+  PacketSessionHistoryData,
+} from './parsers/packets/types';
 
 import {PacketHeader} from './parsers/packets/types/index';
 import {Address, Options, ParsedMessage, PacketData} from './types';
@@ -283,4 +297,16 @@ export {
   DEFAULT_PORT,
   BIGINT_ENABLED,
   FORWARD_ADDRESSES,
+  PacketMotionData,
+  PacketSessionData,
+  PacketLapData,
+  PacketEventData,
+  PacketParticipantsData,
+  PacketCarSetupData,
+  PacketCarTelemetryData,
+  PacketCarStatusData,
+  PacketFinalClassificationData,
+  PacketLobbyInfoData,
+  PacketCarDamageData,
+  PacketSessionHistoryData,
 };
