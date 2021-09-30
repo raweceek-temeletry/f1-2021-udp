@@ -18,6 +18,18 @@ client.on(PACKETS.event, eventPackage => {
   console.clear();
   console.log(eventPackage);
 
+  const j = JSON.stringify(eventPackage, (key, value) => {
+    if (typeof value === 'bigint') {
+      return value.toString() + 'n';
+    } else {
+      return value;
+    }
+  });
+  console.log(j);
+
+  console.log('--------------');
+  console.log(JSON.parse(j));
+
   data = data + '---------------frame start---------------' + '\n';
 
   if (eventPackage?.m_header?.m_sessionUID) {
@@ -235,9 +247,9 @@ client.on(PACKETS.event, eventPackage => {
 
   data = data + '---------------frame end---------------' + '\n';
 
-  fs.appendFile('example-outputs/events.txt', data, (error: string) => {
-    console.log(error);
-  });
+  // fs.appendFile('example-outputs/events.txt', data, (error: string) => {
+  //   console.log(error);
+  // });
 });
 
 client.start();
