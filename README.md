@@ -5,6 +5,7 @@ This is a TypeScript UDP client and telemetry parser for Codemasters F1 2021 gam
 <br>
 
 <a href="https://www.npmjs.com/package/f1-2021-udp"><img src="https://img.shields.io/npm/v/f1-2021-udp.svg"></a> <a href='https://app.travis-ci.com/github/raweceek-temeletry/f1-2021-udp'><img src='https://app.travis-ci.com/raweceek-temeletry/f1-2021-udp.svg?branch=main'></a> <img src="https://img.shields.io/github/license/raweceek-temeletry/f1-2021-udp.svg"><a href="https://snyk.io/test/github/raweceek-temeletry/f1-2021-udp?targetFile=package.json"> <img src="https://snyk.io/test/github/raweceek-temeletry/f1-2021-udp/badge.svg?targetFile=package.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/raweceek-temeletry/f1-2021-udp?targetFile=package.json" style="max-width:100%;"></a> [![Package quality](https://packagequality.com/shield/f1-2021-udp.svg)](https://packagequality.com/#?package=f1-2021-udp)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/raweceek-temeletry/f1-2021-udp.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/raweceek-temeletry/f1-2021-udp/context:javascript)
 
 
 The F1 series of games support the outputting of key game data via a UDP data stream. This data can be interpreted by external apps or connected peripherals for a range of different uses, including providing additional telemetry information, customised HUD displays, motion platform hardware support or providing force feedback data for custom steering wheels.
@@ -44,25 +45,154 @@ const { PACKETS } = constants;
     You can consume telemetry data using forwardAddresses instead.              
 */
 
-const client = new F1TelemetryClient({ port: 20777 });
-client.on(PACKETS.event, console.log);
-client.on(PACKETS.motion, console.log);
-client.on(PACKETS.carSetups, console.log);
-client.on(PACKETS.lapData, console.log);
-client.on(PACKETS.session, console.log);
-client.on(PACKETS.participants, console.log);
-client.on(PACKETS.carTelemetry, console.log);
-client.on(PACKETS.carStatus, console.log);
-client.on(PACKETS.finalClassification, console.log);
-client.on(PACKETS.lobbyInfo, console.log);
-client.on(PACKETS.sessionHistory, console.log);
-client.on(PACKETS.carDamage, console.log);
+import {
+    PacketMotionData,
+    PacketSessionData,
+    PacketLapData,
+    PacketEventData,
+    PacketParticipantsData,
+    PacketCarSetupData,
+    PacketCarTelemetryData,
+    PacketCarStatusData,
+    PacketFinalClassificationData,
+    PacketLobbyInfoData,
+    PacketCarDamageData,
+    PacketSessionHistoryData
+} from "f1-2021-udp";
+
+const {PACKETS} = constants;
+
+const client: any = new F1TelemetryClient();
+
+
+let motion: PacketMotionData;
+let session: PacketSessionData;
+let lapData: PacketLapData;
+let event: PacketEventData;
+let participants: PacketParticipantsData;
+let carSetups: PacketCarSetupData;
+let carTelemetry: PacketCarTelemetryData;
+let carStatus: PacketCarStatusData;
+let finalClassification: PacketFinalClassificationData;
+let lobbyInfo: PacketLobbyInfoData;
+let carDamage: PacketCarDamageData;
+let sessionHistory: PacketSessionHistoryData;
+
+
+// motion 0
+client.on(PACKETS.motion,function(data: PacketMotionData) {
+    motion = data
+    console.log(data);
+
+})
+
+// session 1
+client.on(PACKETS.session,function(data: PacketSessionData) {
+    session = data
+    console.log(data);
+
+})
+
+// lap data 2
+client.on(PACKETS.lapData,function(data: PacketLapData) {
+    lapData = data
+    console.log(data);
+
+})
+
+// event 3
+client.on(PACKETS.event,function(data: PacketEventData | any) {
+    event = data
+    console.log(data);
+
+})
+
+// participants 4
+client.on(PACKETS.participants,function(data: PacketParticipantsData) {
+    participants = data
+    console.log(data);
+
+})
+
+// car setup 5
+client.on(PACKETS.carSetups,function(data: PacketCarSetupData) {
+    carSetups = data
+    console.log(data);
+
+})
+
+// car telemetry 6
+client.on(PACKETS.carTelemetry,function(data: PacketCarTelemetryData) {
+    carTelemetry = data
+    console.log(data);
+
+})
+
+// car status 7
+client.on(PACKETS.carStatus,function(data: PacketCarStatusData) {
+    carStatus = data
+    console.log(data);
+
+})
+
+// final classification 8
+client.on(PACKETS.finalClassification,function(data: PacketFinalClassificationData) {
+    finalClassification = data
+    console.log(data);
+
+})
+
+// lobby info 9
+client.on(PACKETS.lobbyInfo,function(data: PacketLobbyInfoData) {
+    lobbyInfo = data
+    console.log(data);
+
+})
+
+// car damage 10
+client.on(PACKETS.carDamage,function(data: PacketCarDamageData) {
+    carDamage = data
+    console.log(data);
+
+})
+
+// session history 11
+client.on(PACKETS.sessionHistory,function(data: PacketSessionHistoryData) {
+    sessionHistory = data
+    console.log(data);
+
+})
+
 
 // to start listening:
 client.start();
 
 // and when you want to stop:
 client.stop();
+
+
+```
+
+### event types
+```ts
+
+export interface PacketEventData {
+  m_header: PacketHeader;
+  m_eventStringCode: string;
+  FastestLap?: FastestLap;
+  Retirement?: Retirement;
+  TeamMateInPits?: TeamMateInPits;
+  RaceWinner?: RaceWinner;
+  Penalty?: Penalty;
+  SpeedTrap?: SpeedTrap;
+  StartLIghts?: StartLIghts;
+  StartLightsOut?: StartLightsOutParser;
+  DriveThroughPenaltyServed?: DriveThroughPenaltyServed;
+  StopGoPenaltyServed?: StopGoPenaltyServed;
+  Flashback?: Flashback;
+  Buttons?: Buttons;
+}
+
 ```
 
 ## Documentation
