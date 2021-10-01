@@ -48,6 +48,10 @@ export interface StartLIghts {
   numLights: number;
 }
 
+export interface StartLightsOutParser {
+  numLights: number;
+}
+
 export interface DriveThroughPenaltyServed {
   vehicleIdx: number;
 }
@@ -65,22 +69,19 @@ export interface Buttons {
   m_buttonStatus: number;
 }
 
-export interface EventDataDetails {
-  FastestLap: FastestLap;
-  Retirement: Retirement;
-  TeamMateInPits: TeamMateInPits;
-  RaceWinner: RaceWinner;
-  Penalty: Penalty;
-  SpeedTrap: SpeedTrap;
-  StartLIghts: StartLIghts;
-  DriveThroughPenaltyServed: DriveThroughPenaltyServed;
-  StopGoPenaltyServed: StopGoPenaltyServed;
-  Flashback: Flashback;
-  Buttons: Buttons;
-}
-
 export interface PacketEventData {
   m_header: PacketHeader;
   m_eventStringCode: string;
-  m_eventDetails: EventDataDetails;
+  FastestLap?: FastestLap;
+  Retirement?: Retirement;
+  TeamMateInPits?: TeamMateInPits;
+  RaceWinner?: RaceWinner;
+  Penalty?: Penalty;
+  SpeedTrap?: SpeedTrap;
+  StartLIghts?: StartLIghts;
+  StartLightsOut?: StartLightsOutParser;
+  DriveThroughPenaltyServed?: DriveThroughPenaltyServed;
+  StopGoPenaltyServed?: StopGoPenaltyServed;
+  Flashback?: Flashback;
+  Buttons?: Buttons;
 }
