@@ -19,27 +19,34 @@ import {
   PacketSessionHistoryDataParser,
 } from './parsers/packets';
 import {
-  PacketMotionData,
-  PacketSessionData,
-  PacketLapData,
-  PacketEventData,
-  PacketParticipantsData,
-  PacketCarSetupData,
-  PacketCarTelemetryData,
-  PacketCarStatusData,
-  PacketFinalClassificationData,
-  PacketLobbyInfoData,
   PacketCarDamageData,
+  PacketCarSetupData,
+  PacketCarStatusData,
+  PacketCarTelemetryData,
+  PacketEventData,
+  PacketFinalClassificationData,
+  PacketLapData,
+  PacketLobbyInfoData,
+  PacketMotionData,
+  PacketParticipantsData,
+  PacketSessionData,
   PacketSessionHistoryData,
 } from './parsers/packets/types';
 
 import {PacketHeader} from './parsers/packets/types/index';
-import {Address, Options, ParsedMessage, PacketData} from './types';
+import {
+  Address,
+  Options,
+  ParsedMessage,
+  PacketDataParser,
+  F1_2021_UDP_Parser,
+} from './types';
 
 const DEFAULT_PORT = 20777;
 const FORWARD_ADDRESSES = undefined;
 const BIGINT_ENABLED = true;
 const ADDRESS = 'localhost';
+const BINARY_BUTTONS = false;
 
 /**
  *
@@ -48,6 +55,7 @@ class F1TelemetryClient extends EventEmitter {
   port: number;
   bigintEnabled: boolean;
   forwardAddresses?: Address[];
+  binaryButtons: boolean;
   address: string;
   socket?: dgram.Socket;
 
@@ -59,10 +67,12 @@ class F1TelemetryClient extends EventEmitter {
       bigintEnabled = BIGINT_ENABLED,
       forwardAddresses = FORWARD_ADDRESSES,
       address = ADDRESS,
+      binaryButtons = BINARY_BUTTONS,
     } = opts;
 
     this.port = port;
     this.bigintEnabled = bigintEnabled;
+    this.binaryButtons = binaryButtons;
     this.forwardAddresses = forwardAddresses;
     this.address = address;
     this.socket = dgram.createSocket('udp4');
@@ -74,7 +84,8 @@ class F1TelemetryClient extends EventEmitter {
    */
   static parseBufferMessage(
     message: Buffer,
-    bigintEnabled = false
+    bigintEnabled = false,
+    binaryButtons = false
   ): ParsedMessage | undefined {
     const header: PacketHeader = F1TelemetryClient.parsePacketHeader(
       message,
@@ -82,29 +93,23 @@ class F1TelemetryClient extends EventEmitter {
     );
     const {m_packetId} = header as PacketHeader;
 
-    const parser:
-      | typeof PacketCarDamageParser
-      | typeof PacketCarSetupDataParser
-      | typeof PacketCarStatusDataParser
-      | typeof PacketCarTelemetryDataParser
-      | typeof PacketEventDataParser
-      | typeof PacketFinalClassificationDataParser
-      | typeof PacketLapDataParser
-      | typeof PacketLobbyInfoDataParser
-      | typeof PacketMotionDataParser
-      | typeof PacketParticipantsDataParser
-      | typeof PacketSessionDataParser
-      | typeof PacketSessionHistoryDataParser
-      | null = F1TelemetryClient.getParserByPacketId(m_packetId);
+    const parser: F1_2021_UDP_Parser =
+      F1TelemetryClient.getParserByPacketId(m_packetId);
 
     if (!parser) {
       return;
     }
 
-    const packetData: PacketData = new parser(message, bigintEnabled);
+    const packetData: PacketDataParser = new parser(
+      message,
+      bigintEnabled,
+      binaryButtons
+    );
     const packetID: string = Object.keys(constants.PACKETS)[m_packetId];
 
     // emit parsed message
+    console.log(packetData, 'packkketdata');
+
     return {packetData, packetID};
   }
 
@@ -112,6 +117,7 @@ class F1TelemetryClient extends EventEmitter {
    *
    * @param {Buffer} buffer
    * @param {Boolean} bigIntEnabled
+   * @param {Boolean} binaryButtons
    */
 
   static parsePacketHeader(
@@ -141,22 +147,7 @@ class F1TelemetryClient extends EventEmitter {
    * @param {Number} packetId
    */
 
-  static getParserByPacketId(
-    packetId: number
-  ):
-    | typeof PacketCarDamageParser
-    | typeof PacketCarSetupDataParser
-    | typeof PacketCarStatusDataParser
-    | typeof PacketCarTelemetryDataParser
-    | typeof PacketEventDataParser
-    | typeof PacketFinalClassificationDataParser
-    | typeof PacketLapDataParser
-    | typeof PacketLobbyInfoDataParser
-    | typeof PacketMotionDataParser
-    | typeof PacketParticipantsDataParser
-    | typeof PacketSessionDataParser
-    | typeof PacketSessionHistoryDataParser
-    | null {
+  static getParserByPacketId(packetId: number): F1_2021_UDP_Parser {
     const {PACKETS} = constants;
 
     const packetKeys: string[] = Object.keys(PACKETS);
@@ -215,7 +206,11 @@ class F1TelemetryClient extends EventEmitter {
     }
 
     const parsedMessage: ParsedMessage | undefined =
-      F1TelemetryClient.parseBufferMessage(message, this.bigintEnabled);
+      F1TelemetryClient.parseBufferMessage(
+        message,
+        this.bigintEnabled,
+        this.binaryButtons
+      );
 
     if (!parsedMessage || !parsedMessage.packetData) {
       return;

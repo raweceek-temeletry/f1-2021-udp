@@ -19,6 +19,7 @@ export interface Options {
   bigintEnabled?: boolean;
   skipParsing?: boolean;
   address?: string;
+  binaryButtons?: boolean;
 }
 
 export interface Address {
@@ -28,10 +29,10 @@ export interface Address {
 
 export interface ParsedMessage {
   packetID: string;
-  packetData: PacketData;
+  packetData: PacketDataParser;
 }
 
-type PacketData =
+export type PacketDataParser =
   | PacketSessionDataParser
   | PacketMotionDataParser
   | PacketCarDamageParser
@@ -46,4 +47,17 @@ type PacketData =
   | PacketLobbyInfoDataParser
   | null;
 
-export {PacketData};
+export type F1_2021_UDP_Parser =
+  | typeof PacketCarDamageParser
+  | typeof PacketCarSetupDataParser
+  | typeof PacketCarStatusDataParser
+  | typeof PacketCarTelemetryDataParser
+  | typeof PacketEventDataParser
+  | typeof PacketFinalClassificationDataParser
+  | typeof PacketLapDataParser
+  | typeof PacketLobbyInfoDataParser
+  | typeof PacketMotionDataParser
+  | typeof PacketParticipantsDataParser
+  | typeof PacketSessionDataParser
+  | typeof PacketSessionHistoryDataParser
+  | null;

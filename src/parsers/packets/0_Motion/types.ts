@@ -1,16 +1,6 @@
-export interface PacketHeader {
-  m_packetFormat: number;
-  m_gameMajorVersion: number;
-  m_gameMinorVersion: number;
-  m_packetVersion: number;
-  m_packetId: number;
-  m_sessionUID: bigint;
-  m_sessionTime: number;
-  m_frameIdentifier: number;
-  m_playerCarIndex: number;
-}
+import {PacketHeader} from '../types';
 
-export interface CarMotionData {
+interface CarMotionData {
   m_worldPositionX: number;
   m_worldPositionY: number;
   m_worldPositionZ: number;
