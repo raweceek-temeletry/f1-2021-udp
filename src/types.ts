@@ -19,7 +19,7 @@ export interface Options {
   bigintEnabled?: boolean;
   skipParsing?: boolean;
   address?: string;
-  binaryButtons?: boolean;
+  binaryButtonFlags?: boolean;
 }
 
 export interface Address {

@@ -36,6 +36,10 @@ const { PACKETS } = constants;
 *   'bigintEnabled' is optional, defaults to true
      setting it to false makes the parser skip bigint values
 
+*   'binaryButtonFlags' is optional, defaults to false
+     setting it to true makes the parser return an object 
+     with a binary flag for every button
+
 *   'forwardAddresses' is optional, defaults to undefined
     it's an array of Address objects to forward unparsed telemetry to.
     each address object is comprised of a port and an optional ip address
@@ -101,7 +105,7 @@ client.on(PACKETS.lapData,function(data: PacketLapData) {
 })
 
 // event 3
-client.on(PACKETS.event,function(data: PacketEventData | any) {
+client.on(PACKETS.event,function(data: PacketEventData) {
     event = data
     console.log(data);
 
@@ -172,6 +176,100 @@ client.stop();
 
 
 ```
+
+
+### use binaryButtonFlags
+
+
+```ts
+const client = new F1TelemetryClient({port: 20777 , binaryButtonFlags: true});
+
+/*
+
+*   'binaryButtonFlags' is optional, defaults to false
+     setting it to true makes the parser return an object 
+     with a binary flag for every button
+
+*/
+
+```
+#### Events Package Output with `binaryButtonFlags` enabled
+
+```js
+    {
+        "m_header": {
+            "m_packetFormat": 2021,
+            "m_gameMajorVersion": 1,
+            "m_gameMinorVersion": 10,
+            "m_packetVersion": 1,
+            "m_packetId": 3,
+            "m_sessionUID": 1110141079483444784,
+            "m_sessionTime": 4221.21923828125,
+            "m_frameIdentifier": 281654,
+            "m_playerCarIndex": 0,
+            "m_secondaryPlayerCarIndex": 255
+        },
+        "m_eventStringCode": "BUTN",
+        "Buttons": {
+            "bit1": 0,
+            "bit2": 0,
+            "bit3": 0,
+            "bit4": 0,
+            "bit5": 0,
+            "bit6": 0,
+            "bit7": 0,
+            "bit8": 0,
+            "Right_Stick_Right": 0,
+            "Right_Stick_Up": 0,
+            "Right_Stick_Down": 0,
+            "Special": 0,
+            "bit13": 0,
+            "bit14": 0,
+            "bit15": 0,
+            "bit16": 0,
+            "Options_or_Menu": 0,
+            "L1_or_LB": 0,
+            "R1_or_RB": 0,
+            "L2_or_LT": 0,
+            "R2_or_RT": 1,
+            "Left_Stick_Click": 0,
+            "Right_Stick_Click": 0,
+            "Right_Stick_Left": 0,
+            "Cross_or_A": 0,
+            "Triangle_or_Y": 0,
+            "Circle_or_B": 0,
+            "Square_or_X": 1,
+            "D_Pad_Left": 0,
+            "D_Pad_Right": 1,
+            "D_Pad_Up": 0,
+            "D_Pad_Down": 0
+        }
+    }
+```
+
+#### Event Package Output without `binaryButtonFlags` parameter
+
+```js
+    {
+        "m_header": {
+            "m_packetFormat": 2021,
+            "m_gameMajorVersion": 1,
+            "m_gameMinorVersion": 10,
+            "m_packetVersion": 1,
+            "m_packetId": 3,
+            "m_sessionUID": 1110141079483444784,
+            "m_sessionTime": 4221.21923828125,
+            "m_frameIdentifier": 281654,
+            "m_playerCarIndex": 0,
+            "m_secondaryPlayerCarIndex": 255
+        },
+        "m_eventStringCode": "BUTN",
+        "Buttons": {
+            "m_buttonStatus": 524288
+        }
+    }
+```
+
 
 ### event types
 ```ts

@@ -100,16 +100,60 @@ export class FlashbackParser extends F1Parser {
 }
 
 export class ButtonsParser extends F1Parser {
-  constructor() {
+  constructor(binaryButtonFlags: boolean) {
     super();
-    this.endianess('little').uint32le('m_buttonStatus');
+
+    if (binaryButtonFlags) {
+      this.endianess('little')
+        .bit1('bit1')
+        .bit1('bit2')
+        .bit1('bit3')
+        .bit1('bit4')
+        .bit1('bit5')
+        .bit1('bit6')
+        .bit1('bit7')
+        .bit1('bit8')
+
+        .bit1('Right_Stick_Right')
+        .bit1('Right_Stick_Up')
+        .bit1('Right_Stick_Down')
+        .bit1('Special')
+
+        .bit1('bit13')
+        .bit1('bit14')
+        .bit1('bit15')
+        .bit1('bit16')
+
+        .bit1('Options_or_Menu')
+        .bit1('L1_or_LB')
+        .bit1('R1_or_RB')
+        .bit1('L2_or_LT')
+        .bit1('R2_or_RT')
+        .bit1('Left_Stick_Click')
+        .bit1('Right_Stick_Click')
+        .bit1('Right_Stick_Left')
+        .bit1('Cross_or_A')
+        .bit1('Triangle_or_Y')
+        .bit1('Circle_or_B')
+        .bit1('Square_or_X')
+        .bit1('D_Pad_Left')
+        .bit1('D_Pad_Right')
+        .bit1('D_Pad_Up')
+        .bit1('D_Pad_Down');
+    } else {
+      this.endianess('little').uint32le('m_buttonStatus');
+    }
   }
 }
 
 export class PacketEventDataParser extends F1Parser {
   data: PacketEventData;
 
-  constructor(buffer: Buffer, bigintEnabled: boolean) {
+  constructor(
+    buffer: Buffer,
+    bigintEnabled: boolean,
+    binaryButtonFlags: boolean
+  ) {
     super();
 
     this.endianess('little')
@@ -118,11 +162,15 @@ export class PacketEventDataParser extends F1Parser {
       })
       .string('m_eventStringCode', {length: 4});
 
-    this.unpack2021Format(buffer, bigintEnabled);
+    this.unpack2021Format(buffer, bigintEnabled, binaryButtonFlags);
     this.data = this.fromBuffer(buffer) as PacketEventData;
   }
 
-  unpack2021Format = (buffer: Buffer, bigintEnabled: boolean) => {
+  unpack2021Format = (
+    buffer: Buffer,
+    bigintEnabled: boolean,
+    binaryButtonFlags: boolean
+  ) => {
     const eventStringCode = this.getEventStringCode(buffer, bigintEnabled);
 
     if (eventStringCode === EVENT_CODES.FastestLap) {
@@ -150,7 +198,7 @@ export class PacketEventDataParser extends F1Parser {
     } else if (eventStringCode === EVENT_CODES.Flashback) {
       this.nest('Flashback', {type: new FlashbackParser()});
     } else if (eventStringCode === EVENT_CODES.ButtonStatus) {
-      this.nest('Buttons', {type: new ButtonsParser()});
+      this.nest('Buttons', {type: new ButtonsParser(binaryButtonFlags)});
     }
   };
 

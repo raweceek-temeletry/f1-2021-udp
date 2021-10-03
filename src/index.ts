@@ -55,7 +55,7 @@ class F1TelemetryClient extends EventEmitter {
   port: number;
   bigintEnabled: boolean;
   forwardAddresses?: Address[];
-  binaryButtons: boolean;
+  binaryButtonFlags: boolean;
   address: string;
   socket?: dgram.Socket;
 
@@ -67,12 +67,12 @@ class F1TelemetryClient extends EventEmitter {
       bigintEnabled = BIGINT_ENABLED,
       forwardAddresses = FORWARD_ADDRESSES,
       address = ADDRESS,
-      binaryButtons = BINARY_BUTTONS,
+      binaryButtonFlags = BINARY_BUTTONS,
     } = opts;
 
     this.port = port;
     this.bigintEnabled = bigintEnabled;
-    this.binaryButtons = binaryButtons;
+    this.binaryButtonFlags = binaryButtonFlags;
     this.forwardAddresses = forwardAddresses;
     this.address = address;
     this.socket = dgram.createSocket('udp4');
@@ -85,7 +85,7 @@ class F1TelemetryClient extends EventEmitter {
   static parseBufferMessage(
     message: Buffer,
     bigintEnabled = false,
-    binaryButtons = false
+    binaryButtonFlags = false
   ): ParsedMessage | undefined {
     const header: PacketHeader = F1TelemetryClient.parsePacketHeader(
       message,
@@ -103,12 +103,11 @@ class F1TelemetryClient extends EventEmitter {
     const packetData: PacketDataParser = new parser(
       message,
       bigintEnabled,
-      binaryButtons
+      binaryButtonFlags
     );
     const packetID: string = Object.keys(constants.PACKETS)[m_packetId];
 
     // emit parsed message
-    console.log(packetData, 'packkketdata');
 
     return {packetData, packetID};
   }
@@ -117,7 +116,7 @@ class F1TelemetryClient extends EventEmitter {
    *
    * @param {Buffer} buffer
    * @param {Boolean} bigIntEnabled
-   * @param {Boolean} binaryButtons
+   * @param {Boolean} binaryButtonFlags
    */
 
   static parsePacketHeader(
@@ -209,7 +208,7 @@ class F1TelemetryClient extends EventEmitter {
       F1TelemetryClient.parseBufferMessage(
         message,
         this.bigintEnabled,
-        this.binaryButtons
+        this.binaryButtonFlags
       );
 
     if (!parsedMessage || !parsedMessage.packetData) {

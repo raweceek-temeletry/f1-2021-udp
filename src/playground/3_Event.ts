@@ -5,7 +5,7 @@ const fsx = require('fs-extra');
 
 const client: F1TelemetryClient = new F1TelemetryClient({
   port: 20777,
-  binaryButtons: true,
+  binaryButtonFlags: true,
 });
 
 fsx.ensureDir('example-output', (error: String): void => {
