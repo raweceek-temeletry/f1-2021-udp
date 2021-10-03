@@ -18,8 +18,6 @@ fsx.ensureFile('example-outputs/events.json', (error: string): void => {
 
 const eventArray: Array<{}> = [];
 client.on(PACKETS.event, (eventPackage: PacketEventData): void => {
-  console.clear();
-
   const data = JSON.stringify(eventPackage, (key, value) => {
     if (typeof value === 'bigint') {
       return value.toString() + 'n';
@@ -27,9 +25,25 @@ client.on(PACKETS.event, (eventPackage: PacketEventData): void => {
       return value;
     }
   });
+  console.clear();
   console.log(data);
 
-  console.log('--------------');
+  console.log(`
+-----------------------------------------------------
+  "controller preset 1"  ${
+    eventPackage?.Buttons?.Options_or_Menu ? 'pause' : '     '
+  } 
+
+${eventPackage?.Buttons?.L2_or_LT ? 'Brake' : '     '}      ${
+    eventPackage?.Buttons?.R2_or_RT ? 'Accelerate' : '          '
+  }
+
+${eventPackage?.Buttons?.D_Pad_Left ? 'Left' : '    '}   ${
+    eventPackage?.Buttons?.D_Pad_Right ? 'Right' : '     '
+  }
+
+-----------------------------------------------------
+`);
   console.log(JSON.parse(data));
   eventArray.push(JSON.parse(data));
 
