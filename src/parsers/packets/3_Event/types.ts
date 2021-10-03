@@ -56,7 +56,39 @@ export interface Flashback {
 }
 
 export interface Buttons {
-  m_buttonStatus: number;
+  m_buttonStatus?: number;
+  bit1?: number;
+  bit2?: number;
+  bit3?: number;
+  bit4?: number;
+  bit5?: number;
+  bit6?: number;
+  bit7?: number;
+  bit8?: number;
+  Right_Stick_Right?: number;
+  Right_Stick_Up?: number;
+  Right_Stick_Down?: number;
+  Special?: number;
+  bit13?: number;
+  bit14?: number;
+  bit15?: number;
+  bit16?: number;
+  Options_or_Menu?: number;
+  L1_or_LB?: number;
+  R1_or_RB?: number;
+  L2_or_LT?: number;
+  R2_or_RT?: number;
+  Left_Stick_Click?: number;
+  Right_Stick_Click?: number;
+  Right_Stick_Left?: number;
+  Cross_or_A?: number;
+  Triangle_or_Y?: number;
+  Circle_or_B?: number;
+  Square_or_X?: number;
+  D_Pad_Left?: number;
+  D_Pad_Right?: number;
+  D_Pad_Up?: number;
+  D_Pad_Down?: number;
 }
 
 export interface PacketEventData {
@@ -74,4 +106,39 @@ export interface PacketEventData {
   StopGoPenaltyServed?: StopGoPenaltyServed;
   Flashback?: Flashback;
   Buttons?: Buttons;
+}
+
+export interface ButtonFlags {
+  bit1: number;
+  bit2: number;
+  bit3: number;
+  bit4: number;
+  bit5: number;
+  bit6: number;
+  bit7: number;
+  bit8: number;
+  Right_Stick_Right: number;
+  Right_Stick_Up: number;
+  Right_Stick_Down: number;
+  Special: number;
+  bit13: number;
+  bit14: number;
+  bit15: number;
+  bit16: number;
+  Options_or_Menu: number;
+  L1_or_LB: number;
+  R1_or_RB: number;
+  L2_or_LT: number;
+  R2_or_RT: number;
+  Left_Stick_Click: number;
+  Right_Stick_Click: number;
+  Right_Stick_Left: number;
+  Cross_or_A: number;
+  Triangle_or_Y: number;
+  Circle_or_B: number;
+  Square_or_X: number;
+  D_Pad_Left: number;
+  D_Pad_Right: number;
+  D_Pad_Up: number;
+  D_Pad_Down: number;
 }
