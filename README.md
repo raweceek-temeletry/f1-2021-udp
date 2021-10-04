@@ -64,7 +64,7 @@ import {
     PacketSessionHistoryData
 } from "f1-2021-udp";
 
-const {PACKETS} = constants;
+ 
 
 const client: any = new F1TelemetryClient();
 

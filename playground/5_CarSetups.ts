@@ -1,9 +1,8 @@
-import {F1TelemetryClient, constants} from '../src';
-const {PACKETS} = constants;
+import {F1TelemetryClient} from '../src';
 
 const client = new F1TelemetryClient({port: 20777});
 
-client.on(PACKETS.carSetups, x => {
+client.on('carSetups', x => {
   console.clear();
   console.log(x);
 });

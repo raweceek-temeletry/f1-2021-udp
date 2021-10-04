@@ -1,7 +1,7 @@
 import * as dgram from 'dgram';
 import {F1TelemetryClient} from '../src';
 
-// const {PACKETS} = constants;
+//
 
 const client = new F1TelemetryClient({
   port: 20777,

@@ -3,6 +3,7 @@ import {EventEmitter} from 'events';
 import {AddressInfo} from 'net';
 import * as constants from './constants';
 import * as constantsTypes from './constants/types';
+const {PACKETS} = constants;
 import {
   PacketCarDamageParser,
   PacketCarSetupDataParser,
@@ -51,6 +52,49 @@ const BINARY_BUTTONS = false;
 /**
  *
  */
+declare interface F1TelemetryClient {
+  on(event: 'event', listener: (data: PacketEventData) => void): this;
+
+  on(event: 'motion', listener: (data: PacketMotionData) => void): this;
+
+  on(event: 'session', listener: (data: PacketSessionData) => void): this;
+
+  on(
+    event: 'participants',
+    listener: (data: PacketParticipantsData) => void
+  ): this;
+
+  on(event: 'lapData', listener: (data: PacketLapData) => void): this;
+
+  on(
+    event: 'finalClassification',
+    listener: (data: PacketFinalClassificationData) => void
+  ): this;
+
+  on(event: 'lobbyInfo', listener: (data: PacketLobbyInfoData) => void): this;
+
+  on(
+    event: 'participants',
+    listener: (data: PacketParticipantsData) => void
+  ): this;
+
+  on(event: 'carSetups', listener: (data: PacketCarSetupData) => void): this;
+
+  on(event: 'carStatus', listener: (data: PacketCarStatusData) => void): this;
+
+  on(
+    event: 'carTelemetry',
+    listener: (data: PacketCarTelemetryData) => void
+  ): this;
+
+  on(event: 'carDamage', listener: (data: PacketCarDamageData) => void): this;
+
+  on(
+    event: 'sessionHistory',
+    listener: (data: PacketSessionHistoryData) => void
+  ): this;
+}
+
 class F1TelemetryClient extends EventEmitter {
   port: number;
   bigintEnabled: boolean;
@@ -147,8 +191,6 @@ class F1TelemetryClient extends EventEmitter {
    */
 
   static getParserByPacketId(packetId: number): F1_2021_UDP_Parser {
-    const {PACKETS} = constants;
-
     const packetKeys: string[] = Object.keys(PACKETS);
     const packetType: string = packetKeys[packetId];
 
@@ -284,6 +326,9 @@ class F1TelemetryClient extends EventEmitter {
   }
 }
 
+const client = new F1TelemetryClient();
+
+client.on;
 export {
   F1TelemetryClient,
   constants,
