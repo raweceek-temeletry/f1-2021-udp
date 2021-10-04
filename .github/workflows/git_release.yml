@@ -23,6 +23,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Release
+      - uses: actions/checkout@v1
       - uses: docker://antonyurchenko/git-release:latest
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
