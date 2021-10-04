@@ -12,7 +12,7 @@ The F1 series of games support the outputting of key game data via a UDP data st
 
 <br>
 
-![](/logo.png)
+![](/logo.jpg)
 
 
 
