@@ -1,6 +1,6 @@
 import {Parser} from 'binary-parser';
 
-import {parsedPackageData} from './packets/types';
+import {parsedPackageData} from './types';
 
 export class F1Parser extends Parser {
   /**

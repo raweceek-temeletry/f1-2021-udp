@@ -17,7 +17,7 @@ import {
   PacketParticipantsDataParser,
   PacketSessionDataParser,
   PacketSessionHistoryDataParser,
-} from './parsers/packets';
+} from './parsers';
 import {
   PacketCarDamageData,
   PacketCarSetupData,
@@ -31,9 +31,9 @@ import {
   PacketParticipantsData,
   PacketSessionData,
   PacketSessionHistoryData,
-} from './parsers/packets/types';
+} from './parsers/types';
 
-import {PacketHeader} from './parsers/packets/types/index';
+import {PacketHeader} from './parsers/types';
 import {
   Address,
   Options,
