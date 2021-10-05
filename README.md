@@ -19,17 +19,14 @@ The F1 series of games support the outputting of key game data via a UDP data st
 ## Installing
 
 ```
-$ npm install f1-2021-udp
+npm install f1-2021-udp
 ```
 
 
 ## Usage
 
 ```js
-import { F1TelemetryClient, constants } from "f1-2021-udp";
-// or: const { F1TelemetryClient, constants } = require('f1-2021-udp');
-const { PACKETS } = constants;
-
+import { F1TelemetryClient } from "f1-2021-udp";
 /*
 *   'port' is optional, defaults to 20777
 
@@ -49,122 +46,66 @@ const { PACKETS } = constants;
     You can consume telemetry data using forwardAddresses instead.              
 */
 
-import {
-    PacketMotionData,
-    PacketSessionData,
-    PacketLapData,
-    PacketEventData,
-    PacketParticipantsData,
-    PacketCarSetupData,
-    PacketCarTelemetryData,
-    PacketCarStatusData,
-    PacketFinalClassificationData,
-    PacketLobbyInfoData,
-    PacketCarDamageData,
-    PacketSessionHistoryData
-} from "f1-2021-udp";
-
- 
-
-const client: any = new F1TelemetryClient();
-
-
-let motion: PacketMotionData;
-let session: PacketSessionData;
-let lapData: PacketLapData;
-let event: PacketEventData;
-let participants: PacketParticipantsData;
-let carSetups: PacketCarSetupData;
-let carTelemetry: PacketCarTelemetryData;
-let carStatus: PacketCarStatusData;
-let finalClassification: PacketFinalClassificationData;
-let lobbyInfo: PacketLobbyInfoData;
-let carDamage: PacketCarDamageData;
-let sessionHistory: PacketSessionHistoryData;
-
+const client = new F1TelemetryClient();
 
 // motion 0
-client.on(PACKETS.motion,function(data: PacketMotionData) {
-    motion = data
+client.on('motion',function(data) {
     console.log(data);
-
 })
 
 // session 1
-client.on(PACKETS.session,function(data: PacketSessionData) {
-    session = data
+client.on('session',function(data) {
     console.log(data);
-
 })
 
 // lap data 2
-client.on(PACKETS.lapData,function(data: PacketLapData) {
-    lapData = data
+client.on('lapData',function(data) {
     console.log(data);
-
 })
 
 // event 3
-client.on(PACKETS.event,function(data: PacketEventData) {
-    event = data
+client.on('event',function(data) {
     console.log(data);
-
 })
 
 // participants 4
-client.on(PACKETS.participants,function(data: PacketParticipantsData) {
-    participants = data
+client.on('participants',function(data) {
     console.log(data);
-
 })
 
 // car setup 5
-client.on(PACKETS.carSetups,function(data: PacketCarSetupData) {
-    carSetups = data
+client.on('carSetups',function(data) {
     console.log(data);
-
 })
 
 // car telemetry 6
-client.on(PACKETS.carTelemetry,function(data: PacketCarTelemetryData) {
-    carTelemetry = data
+client.on('carTelemetry',function(data) {
     console.log(data);
-
 })
 
 // car status 7
-client.on(PACKETS.carStatus,function(data: PacketCarStatusData) {
-    carStatus = data
+client.on('carStatus',function(data) {
     console.log(data);
-
 })
 
 // final classification 8
-client.on(PACKETS.finalClassification,function(data: PacketFinalClassificationData) {
-    finalClassification = data
+client.on('finalClassification',function(data) {
     console.log(data);
-
 })
 
 // lobby info 9
-client.on(PACKETS.lobbyInfo,function(data: PacketLobbyInfoData) {
-    lobbyInfo = data
+client.on('lobbyInfo',function(data) {
     console.log(data);
-
 })
 
 // car damage 10
-client.on(PACKETS.carDamage,function(data: PacketCarDamageData) {
-    carDamage = data
+client.on('carDamage',function(data) {
     console.log(data);
-
 })
 
 // session history 11
-client.on(PACKETS.sessionHistory,function(data: PacketSessionHistoryData) {
-    sessionHistory = data
+client.on('sessionHistory',function(data) {
     console.log(data);
-
 })
 
 
@@ -177,12 +118,26 @@ client.stop();
 
 ```
 
+#### Event names autocomplete in TypeScript, You can still use constants.
+```ts
+import { F1TelemetryClient, constants } from "f1-2021-udp";
+
+const { PACKETS } = constants;
+const client = new F1TelemetryClient();
+
+
+client.on(PACKETS.motion,function(data) {
+    console.log(data);
+})
+
+```
+
 
 ### use binaryButtonFlags
 
 
 ```ts
-const client = new F1TelemetryClient({port: 20777 , binaryButtonFlags: true});
+const client = new F1TelemetryClient({binaryButtonFlags: true});
 
 /*
 
