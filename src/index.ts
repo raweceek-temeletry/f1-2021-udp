@@ -47,31 +47,18 @@ const BINARY_BUTTONS = false;
  *
  */
 declare interface F1TelemetryClient {
-  on(event: 'event', listener: (data: PacketEventData) => void): this;
-
-  on(event: 'motion', listener: (data: PacketMotionData) => void): this;
-
-  on(event: 'session', listener: (data: PacketSessionData) => void): this;
-
-  on(event: 'participants', listener: (data: PacketParticipantsData) => void): this;
-
-  on(event: 'lapData', listener: (data: PacketLapData) => void): this;
-
-  on(event: 'finalClassification', listener: (data: PacketFinalClassificationData) => void): void;
-
-  on(event: 'lobbyInfo', listener: (data: PacketLobbyInfoData) => void): this;
-
-  on(event: 'participants', listener: (data: PacketParticipantsData) => void): this;
-
-  on(event: 'carSetups', listener: (data: PacketCarSetupData) => void): this;
-
-  on(event: 'carStatus', listener: (data: PacketCarStatusData) => void): this;
-
-  on(event: 'carTelemetry', listener: (data: PacketCarTelemetryData) => void): this;
-
-  on(event: 'carDamage', listener: (data: PacketCarDamageData) => void): this;
-
-  on(event: 'sessionHistory', listener: (data: PacketSessionHistoryData) => void): this;
+  on(event: 'motion', listener: (data: PacketMotionData) => void): this; //0
+  on(event: 'session', listener: (data: PacketSessionData) => void): this; //1
+  on(event: 'lapData', listener: (data: PacketLapData) => void): this; //2
+  on(event: 'event', listener: (data: PacketEventData) => void): this; //3
+  on(event: 'participants', listener: (data: PacketParticipantsData) => void): this; //4
+  on(event: 'carSetups', listener: (data: PacketCarSetupData) => void): this; //5
+  on(event: 'carTelemetry', listener: (data: PacketCarTelemetryData) => void): this; //6
+  on(event: 'carStatus', listener: (data: PacketCarStatusData) => void): this; //7
+  on(event: 'lobbyInfo', listener: (data: PacketLobbyInfoData) => void): this; //8
+  on(event: 'finalClassification', listener: (data: PacketFinalClassificationData) => void): this; //8
+  on(event: 'carDamage', listener: (data: PacketCarDamageData) => void): this; //10
+  on(event: 'sessionHistory', listener: (data: PacketSessionHistoryData) => void): this; //11
 }
 
 class F1TelemetryClient extends EventEmitter {
