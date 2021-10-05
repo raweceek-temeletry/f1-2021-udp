@@ -1,9 +1,8 @@
-import {F1TelemetryClient, constants} from '../src';
-const {PACKETS} = constants;
+import {F1TelemetryClient} from '../src';
 
 const client = new F1TelemetryClient({port: 20777});
 
-client.on(PACKETS.finalClassification, x => {
+client.on('finalClassification', x => {
   console.clear();
   console.log(x);
 });

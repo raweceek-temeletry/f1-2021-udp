@@ -1,11 +1,12 @@
-import {F1TelemetryClient, constants} from '../src';
-import {PacketEventData} from '../src';
-const {PACKETS} = constants;
+import {F1TelemetryClient} from '../src';
+
 const fsx = require('fs-extra');
 
 const client: F1TelemetryClient = new F1TelemetryClient({
   port: 20777,
   binaryButtonFlags: true,
+  address: '192.168.1.3',
+  forwardAddresses: [{port: 20778, ip: '192.168.1.7'}],
 });
 
 fsx.ensureDir('example-output', (error: String): void => {
@@ -17,8 +18,9 @@ fsx.ensureFile('example-outputs/events.json', (error: string): void => {
 });
 
 const eventArray: Array<{}> = [];
-client.on(PACKETS.event, (eventPackage: PacketEventData): void => {
-  const data = JSON.stringify(eventPackage, (key, value) => {
+client.on('event', (data): void => {
+  data;
+  const stringData = JSON.stringify(data, (key, value) => {
     if (typeof value === 'bigint') {
       return value.toString() + 'n';
     } else {
@@ -26,34 +28,24 @@ client.on(PACKETS.event, (eventPackage: PacketEventData): void => {
     }
   });
   console.clear();
-  console.log(data);
 
   console.log(`
 -----------------------------------------------------
-  "controller preset 1"  ${
-    eventPackage?.Buttons?.Options_or_Menu ? 'pause' : '     '
-  } 
+  "controller preset 1"  ${data?.Buttons?.Options_or_Menu ? 'pause' : '     '} 
 
-${eventPackage?.Buttons?.L2_or_LT ? 'Brake' : '     '}      ${
-    eventPackage?.Buttons?.R2_or_RT ? 'Accelerate' : '          '
-  }
+${data?.Buttons?.L2_or_LT ? 'Brake' : '     '}      ${data?.Buttons?.R2_or_RT ? 'Accelerate' : '          '}
 
-${eventPackage?.Buttons?.D_Pad_Left ? 'Left' : '    '}   ${
-    eventPackage?.Buttons?.D_Pad_Right ? 'Right' : '     '
-  }
+${data?.Buttons?.D_Pad_Left ? 'Left' : '    '}   ${data?.Buttons?.D_Pad_Right ? 'Right' : '     '}
 
 -----------------------------------------------------
 `);
-  console.log(JSON.parse(data));
-  eventArray.push(JSON.parse(data));
 
-  fsx.writeJson(
-    'example-outputs/events.json',
-    eventArray,
-    (error: string): void => {
-      error ? console.log(error) : null;
-    }
-  );
+  console.log(JSON.parse(stringData));
+  eventArray.push(JSON.parse(stringData));
+
+  fsx.writeJson('example-outputs/events.json', eventArray, (error: string): void => {
+    error ? console.log(error) : null;
+  });
 });
 
 client.start();

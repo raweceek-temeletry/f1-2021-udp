@@ -1,9 +1,8 @@
-import {F1TelemetryClient, constants} from '../src';
-const {PACKETS} = constants;
+import {F1TelemetryClient} from '../src';
 
 const client = new F1TelemetryClient({port: 20777});
 
-client.on(PACKETS.motion, x => {
+client.on('motion', x => {
   const data: string = JSON.stringify(x, (key, value) => {
     if (typeof value === 'bigint') {
       return value.toString() + 'n';
@@ -11,6 +10,7 @@ client.on(PACKETS.motion, x => {
       return value;
     }
   });
+
   console.log(data);
 
   console.log('--------------');

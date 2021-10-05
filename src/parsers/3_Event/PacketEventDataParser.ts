@@ -63,7 +63,6 @@ export class SpeedTrapParser extends F1Parser {
 export class StartLightsParser extends F1Parser {
   constructor() {
     super();
-
     this.endianess('little').uint8('numLights');
   }
 }
@@ -71,7 +70,6 @@ export class StartLightsParser extends F1Parser {
 export class StartLightsOutParser extends F1Parser {
   constructor() {
     super();
-
     this.endianess('little').uint8('LightsOut');
   }
 }
@@ -93,9 +91,7 @@ export class StopGoPenaltyServedParser extends F1Parser {
 export class FlashbackParser extends F1Parser {
   constructor() {
     super();
-    this.endianess('little')
-      .uint32le('flashbackFrameIdentifier')
-      .floatle('flashbackSessionTime');
+    this.endianess('little').uint32le('flashbackFrameIdentifier').floatle('flashbackSessionTime');
   }
 }
 
@@ -149,28 +145,18 @@ export class ButtonsParser extends F1Parser {
 export class PacketEventDataParser extends F1Parser {
   data: PacketEventData;
 
-  constructor(
-    buffer: Buffer,
-    bigintEnabled: boolean,
-    binaryButtonFlags: boolean
-  ) {
+  constructor(buffer: Buffer, bigintEnabled: boolean, binaryButtonFlags: boolean) {
     super();
 
     this.endianess('little')
-      .nest('m_header', {
-        type: new PacketHeaderParser(bigintEnabled),
-      })
-      .string('m_eventStringCode', {length: 4});
+      .nest('m_header', {type: new PacketHeaderParser(bigintEnabled)})
+      .string('m_eventStringCode', {length: 4})
+      .unpack2021Format(buffer, bigintEnabled, binaryButtonFlags);
 
-    this.unpack2021Format(buffer, bigintEnabled, binaryButtonFlags);
     this.data = this.fromBuffer(buffer) as PacketEventData;
   }
 
-  unpack2021Format = (
-    buffer: Buffer,
-    bigintEnabled: boolean,
-    binaryButtonFlags: boolean
-  ) => {
+  unpack2021Format = (buffer: Buffer, bigintEnabled: boolean, binaryButtonFlags: boolean) => {
     const eventStringCode = this.getEventStringCode(buffer, bigintEnabled);
 
     if (eventStringCode === EVENT_CODES.FastestLap) {
@@ -190,9 +176,7 @@ export class PacketEventDataParser extends F1Parser {
     } else if (eventStringCode === EVENT_CODES.LightsOut) {
       this.nest('StartLightsOut', {type: new StartLightsOutParser()});
     } else if (eventStringCode === EVENT_CODES.DriveThroughServed) {
-      this.nest('DriveThroughPenaltyServed', {
-        type: new DriveThroughPenaltyServedParser(),
-      });
+      this.nest('DriveThroughPenaltyServed', {type: new DriveThroughPenaltyServedParser()});
     } else if (eventStringCode === EVENT_CODES.StopGoServed) {
       this.nest('StopGoPenaltyServed', {type: new StopGoPenaltyServedParser()});
     } else if (eventStringCode === EVENT_CODES.Flashback) {
@@ -205,9 +189,7 @@ export class PacketEventDataParser extends F1Parser {
   getEventStringCode = (buffer: Buffer, bigintEnabled: boolean) => {
     const headerParser = new Parser()
       .endianess('little')
-      .nest('m_header', {
-        type: new PacketHeaderParser(bigintEnabled),
-      })
+      .nest('m_header', {type: new PacketHeaderParser(bigintEnabled)})
       .string('m_eventStringCode', {length: 4});
     const {m_eventStringCode} = headerParser.parse(buffer);
     return m_eventStringCode;
