@@ -9,7 +9,7 @@ const client: F1TelemetryClient = new F1TelemetryClient({
   forwardAddresses: [{port: 20778, ip: '192.168.1.7'}],
 });
 
-fsx.ensureDir('example-output', (error: String): void => {
+fsx.ensureDir('example-outputs', (error: String): void => {
   console.log(error);
 });
 
