@@ -35,13 +35,7 @@ import {
 } from './parsers/types';
 
 import {PacketHeader} from './parsers/types';
-import {
-  Address,
-  Options,
-  ParsedMessage,
-  PacketDataParser,
-  F1_2021_UDP_Parser,
-} from './types';
+import {Address, Options, ParsedMessage, PacketDataParser, F1_2021_UDP_Parser} from './types';
 
 const DEFAULT_PORT = 20777;
 const FORWARD_ADDRESSES = undefined;
@@ -59,40 +53,25 @@ declare interface F1TelemetryClient {
 
   on(event: 'session', listener: (data: PacketSessionData) => void): this;
 
-  on(
-    event: 'participants',
-    listener: (data: PacketParticipantsData) => void
-  ): this;
+  on(event: 'participants', listener: (data: PacketParticipantsData) => void): this;
 
   on(event: 'lapData', listener: (data: PacketLapData) => void): this;
 
-  on(
-    event: 'finalClassification',
-    listener: (data: PacketFinalClassificationData) => void
-  ): this;
+  on(event: 'finalClassification', listener: (data: PacketFinalClassificationData) => void): void;
 
   on(event: 'lobbyInfo', listener: (data: PacketLobbyInfoData) => void): this;
 
-  on(
-    event: 'participants',
-    listener: (data: PacketParticipantsData) => void
-  ): this;
+  on(event: 'participants', listener: (data: PacketParticipantsData) => void): this;
 
   on(event: 'carSetups', listener: (data: PacketCarSetupData) => void): this;
 
   on(event: 'carStatus', listener: (data: PacketCarStatusData) => void): this;
 
-  on(
-    event: 'carTelemetry',
-    listener: (data: PacketCarTelemetryData) => void
-  ): this;
+  on(event: 'carTelemetry', listener: (data: PacketCarTelemetryData) => void): this;
 
   on(event: 'carDamage', listener: (data: PacketCarDamageData) => void): this;
 
-  on(
-    event: 'sessionHistory',
-    listener: (data: PacketSessionHistoryData) => void
-  ): this;
+  on(event: 'sessionHistory', listener: (data: PacketSessionHistoryData) => void): this;
 }
 
 class F1TelemetryClient extends EventEmitter {
@@ -131,24 +110,16 @@ class F1TelemetryClient extends EventEmitter {
     bigintEnabled = false,
     binaryButtonFlags = false
   ): ParsedMessage | undefined {
-    const header: PacketHeader = F1TelemetryClient.parsePacketHeader(
-      message,
-      bigintEnabled
-    );
+    const header: PacketHeader = F1TelemetryClient.parsePacketHeader(message, bigintEnabled);
     const {m_packetId} = header as PacketHeader;
 
-    const parser: F1_2021_UDP_Parser =
-      F1TelemetryClient.getParserByPacketId(m_packetId);
+    const parser: F1_2021_UDP_Parser = F1TelemetryClient.getParserByPacketId(m_packetId);
 
     if (!parser) {
       return;
     }
 
-    const packetData: PacketDataParser = new parser(
-      message,
-      bigintEnabled,
-      binaryButtonFlags
-    );
+    const packetData: PacketDataParser = new parser(message, bigintEnabled, binaryButtonFlags);
     const packetID: string = Object.keys(constants.PACKETS)[m_packetId];
 
     // emit parsed message
@@ -163,13 +134,8 @@ class F1TelemetryClient extends EventEmitter {
    * @param {Boolean} binaryButtonFlags
    */
 
-  static parsePacketHeader(
-    buffer: Buffer,
-    bigintEnabled: boolean
-  ): PacketHeader {
-    const packetHeaderParser: PacketHeaderParser = new PacketHeaderParser(
-      bigintEnabled
-    );
+  static parsePacketHeader(buffer: Buffer, bigintEnabled: boolean): PacketHeader {
+    const packetHeaderParser: PacketHeaderParser = new PacketHeaderParser(bigintEnabled);
     return packetHeaderParser.fromBuffer(buffer) as PacketHeader;
   }
 
@@ -180,8 +146,7 @@ class F1TelemetryClient extends EventEmitter {
    */
   static getPacketSize(packetFormat: number, packetId: number): number {
     const {PACKET_SIZES} = constants;
-    const packetValues: {[index: number]: number}[] =
-      Object.values(PACKET_SIZES);
+    const packetValues: {[index: number]: number}[] = Object.values(PACKET_SIZES);
     return packetValues[packetId][packetFormat];
   }
 
@@ -246,12 +211,11 @@ class F1TelemetryClient extends EventEmitter {
       this.bridgeMessage(message);
     }
 
-    const parsedMessage: ParsedMessage | undefined =
-      F1TelemetryClient.parseBufferMessage(
-        message,
-        this.bigintEnabled,
-        this.binaryButtonFlags
-      );
+    const parsedMessage: ParsedMessage | undefined = F1TelemetryClient.parseBufferMessage(
+      message,
+      this.bigintEnabled,
+      this.binaryButtonFlags
+    );
 
     if (!parsedMessage || !parsedMessage.packetData) {
       return;
@@ -273,13 +237,7 @@ class F1TelemetryClient extends EventEmitter {
       throw new Error('No ports to bridge over');
     }
     for (const address of this.forwardAddresses) {
-      this.socket.send(
-        message,
-        0,
-        message.length,
-        address.port,
-        address.ip || '0.0.0.0'
-      );
+      this.socket.send(message, 0, message.length, address.port, address.ip || '0.0.0.0');
     }
   }
 
@@ -297,9 +255,7 @@ class F1TelemetryClient extends EventEmitter {
       }
 
       const address: AddressInfo = this.socket.address();
-      console.log(
-        `UDP Client listening on ${address.address}:${address.port} 🏎`
-      );
+      console.log(`UDP Client listening on ${address.address}:${address.port} 🏎`);
       this.socket.setBroadcast(true);
     });
 
@@ -326,9 +282,6 @@ class F1TelemetryClient extends EventEmitter {
   }
 }
 
-const client = new F1TelemetryClient();
-
-client.on;
 export {
   F1TelemetryClient,
   constants,
