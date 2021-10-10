@@ -46,7 +46,7 @@ const BINARY_BUTTONS = false;
 /**
  *
  */
-declare interface F1TelemetryClient {
+declare interface F1TelemetryClient extends EventEmitter {
   on(event: 'motion', listener: (data: PacketMotionData) => void): this; //0
   on(event: 'session', listener: (data: PacketSessionData) => void): this; //1
   on(event: 'lapData', listener: (data: PacketLapData) => void): this; //2
