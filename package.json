@@ -17,7 +17,7 @@
   "devDependencies": {
     "@types/binary-parser": "1.5.1",
     "@types/fs-extra": "^9.0.12",
-    "@types/node": "^16.10.5",
+    "@types/node": "^16.10.9",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "eslint": "7.32.0",
     "eslint-plugin-node": "^11.1.0",
