@@ -46,7 +46,7 @@ import { F1TelemetryClient } from "f1-2021-udp";
     You can consume telemetry data using forwardAddresses instead.              
 */
 
-const client = new F1TelemetryClient();
+const client: F1TelemetryClient = new F1TelemetryClient();
 
 // motion 0
 client.on('motion',function(data) {

@@ -1,6 +1,6 @@
 {
   "name": "f1-2021-udp",
-  "version": "1.12.2",
+  "version": "1.12.3",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
@@ -56,7 +56,7 @@
     "pretest": "npm run compile",
     "posttest": "npm run lint",
     "lint": "gts lint",
-    "uglify":"uglifyjs build/src/index.js -o build/src/index.js"
+    "uglify": "uglifyjs build/src/index.js -o build/src/index.js"
   },
   "husky": {
     "hooks": {
@@ -82,7 +82,29 @@
     "e-sports",
     "PlayStation",
     "xbox",
-    "PC"
+    "PC",
+    "automotive",
+    "f12018",
+    "f1 2018",
+    "f12019",
+    "f1 2019",
+    "f12020",
+    "f1 2020",
+    "f12021",
+    "f1",
+    "racing",
+    "simracing",
+    "gaming",
+    "formula",
+    "ps4",
+    "ps5",
+    "xbox one",
+    "playstation",
+    "playstation 4",
+    "playstation 5",
+    "esports",
+    "e sports",
+    "videogame"
   ],
   "engines": {
     "node": ">=12"
