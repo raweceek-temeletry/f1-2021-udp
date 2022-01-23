@@ -1,5 +1,4 @@
-import { PacketHeader } from "../PacketHeader";
-
+import {PacketHeader} from '../PacketHeader';
 
 /*
 struct MarshalZone
@@ -38,7 +37,6 @@ export interface WeatherForecastSample {
   m_airTemperatureChange: number;
   m_rainPercentage: number;
 }
-
 
 /*
 struct PacketSessionData

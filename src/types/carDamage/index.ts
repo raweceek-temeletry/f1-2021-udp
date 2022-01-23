@@ -1,6 +1,5 @@
 import {PacketHeader} from '../../types/PacketHeader';
 
-
 /*
 struct CarDamageData
 {
@@ -44,7 +43,6 @@ export interface CarDamageData {
   m_engineMGUKWear: number;
   m_engineTCWear: number;
 }
-
 
 /*
 struct PacketCarDamageData

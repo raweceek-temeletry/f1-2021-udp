@@ -52,7 +52,6 @@ export interface CarSetupData {
   m_fuelLoad: number;
 }
 
-
 /*
 struct PacketCarSetupData
 {

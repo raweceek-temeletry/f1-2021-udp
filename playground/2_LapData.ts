@@ -1,12 +1,12 @@
-import {F1TelemetryClient, PacketLapData, PacketSessionData, PacketSessionHistoryData} from '../src';
+import {F1TelemetryClient, PacketLapData} from '../src';
 
-const client:F1TelemetryClient = new F1TelemetryClient({port: 20777, address: '192.168.1.122'});
+const client: F1TelemetryClient = new F1TelemetryClient({port: 20777, address: '192.168.1.122'});
 
 client.on('lapData', data => {
-  let LapData:PacketLapData = data
+  const LapData: PacketLapData = data;
   console.clear();
 
-  const lapData: string = JSON.stringify(data, (key, value) => {
+  const lapData: string = JSON.stringify(LapData, (key, value) => {
     if (typeof value === 'bigint') {
       return value.toString() + 'n';
     } else {
@@ -19,4 +19,3 @@ client.on('lapData', data => {
 });
 
 client.start();
-

@@ -71,7 +71,7 @@ union EventDataDetails
         uint32         m_buttonStatus;    // Bit flags specifying which buttons are being pressed
                                           // currently - see appendices
     } Buttons;
-}; 
+};
 */
 export interface FastestLap {
   vehicleIdx: number;
@@ -164,12 +164,11 @@ export interface Buttons {
   D_Pad_Down?: number;
 }
 
-
 /*
 struct PacketEventData
 {
     PacketHeader    	m_header;               	// Header
-    
+
     uint8           	m_eventStringCode[4];   	// Event string code, see below
     EventDataDetails	m_eventDetails;         	// Event details - should be interpreted differently
                                                  // for each type

@@ -62,9 +62,7 @@ export type F1_2021_UDP_Parser =
   | typeof PacketSessionHistoryDataParser
   | null;
 
-
-
-  import {PacketHeader} from '../types/PacketHeader';
+import {PacketHeader} from '../types/PacketHeader';
 
 import {PacketMotionData} from '../types/motion';
 import {PacketSessionData} from '../types/session';
@@ -92,7 +90,7 @@ export {
   PacketLobbyInfoData,
   PacketCarDamageData,
   PacketSessionHistoryData,
-  PacketHeader
+  PacketHeader,
 };
 
 export type parsedPackageData =
@@ -109,7 +107,3 @@ export type parsedPackageData =
   | PacketCarDamageData
   | PacketSessionHistoryData
   | PacketHeader;
-
-
-  
-  

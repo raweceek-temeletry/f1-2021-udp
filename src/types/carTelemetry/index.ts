@@ -40,7 +40,6 @@ export interface CarTelemetryData {
   m_surfaceType: [number, number, number, number];
 }
 
-
 /*
 struct PacketCarTelemetryData
 {

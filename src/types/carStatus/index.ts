@@ -66,7 +66,6 @@ export interface CarStatusData {
   m_networkPaused: number;
 }
 
-
 /*
 struct PacketCarStatusData
 {

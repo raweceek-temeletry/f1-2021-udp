@@ -36,7 +36,6 @@ export interface FinalClassificationData {
   m_tyreStintsVisual: number[];
 }
 
-
 /*
 struct PacketFinalClassificationData
 {

@@ -61,7 +61,6 @@ export interface LapData {
   m_pitStopShouldServePen: number;
 }
 
-
 /*
 struct PacketLapData
 {

@@ -27,7 +27,6 @@ export interface ParticipantData {
   m_yourTelemetry: number;
 }
 
-
 /*
 struct PacketParticipantsData
 {

@@ -1,6 +1,5 @@
 import {PacketHeader} from '../../types/PacketHeader';
 
-
 /*struct LapHistoryData
 {
     uint32    m_lapTimeInMS;           // Lap time in milliseconds
@@ -18,7 +17,6 @@ export interface LapHistoryData {
   m_lapValidBitFlags: number;
 }
 
-
 /*struct TyreStintHistoryData
 {
     uint8     m_endLap;                // Lap the tyre usage ends on (255 of current tyre)
@@ -30,7 +28,6 @@ export interface TyreStintHistoryData {
   m_tyreActualCompound: number;
   m_tyreVisualCompound: number;
 }
-
 
 /*struct PacketSessionHistoryData
 {

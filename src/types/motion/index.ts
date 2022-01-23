@@ -1,6 +1,5 @@
 import {PacketHeader} from '../PacketHeader';
 
-
 /*
 struct CarMotionData
 {
@@ -44,7 +43,6 @@ export interface CarMotionData {
   m_pitch: number;
   m_roll: number;
 }
-
 
 /*
 struct PacketMotionData

@@ -21,7 +21,6 @@ export interface LobbyInfoData {
   m_readyStatus: number;
 }
 
-
 /*
 struct PacketLobbyInfoData
 {
