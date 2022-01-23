@@ -1,6 +1,6 @@
 {
   "name": "f1-2021-udp",
-  "version": "1.12.10",
+  "version": "1.12.12",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
@@ -71,6 +71,15 @@
   },
   "keywords": [
     "f1",
+    "game",
+    "udp",
+    "f1-2021",
+    "f12021",
+    "telemetry",
+    "parser",
+    "racing",
+    "esports",
+    "codemasters",
     "f1 game",
     "f1 2021",     
     "f1 telemetry",
