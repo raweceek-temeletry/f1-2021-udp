@@ -61,3 +61,55 @@ export type F1_2021_UDP_Parser =
   | typeof PacketSessionDataParser
   | typeof PacketSessionHistoryDataParser
   | null;
+
+
+
+  import {PacketHeader} from '../types/PacketHeader';
+
+import {PacketMotionData} from '../types/motion';
+import {PacketSessionData} from '../types/session';
+import {PacketLapData} from '../types/lapData';
+import {PacketEventData} from '../types/event';
+import {PacketParticipantsData} from '../types/participants';
+import {PacketCarSetupData} from '../types/carSetups';
+import {PacketCarTelemetryData} from '../types/carTelemetry';
+import {PacketCarStatusData} from '../types/carStatus';
+import {PacketFinalClassificationData} from '../types/finalClassification';
+import {PacketLobbyInfoData} from '../types/lobbyInfo';
+import {PacketCarDamageData} from '../types/carDamage';
+import {PacketSessionHistoryData} from '../types/sessionHistory';
+
+export {
+  PacketMotionData,
+  PacketSessionData,
+  PacketLapData,
+  PacketEventData,
+  PacketParticipantsData,
+  PacketCarSetupData,
+  PacketCarTelemetryData,
+  PacketCarStatusData,
+  PacketFinalClassificationData,
+  PacketLobbyInfoData,
+  PacketCarDamageData,
+  PacketSessionHistoryData,
+  PacketHeader
+};
+
+export type parsedPackageData =
+  | PacketMotionData
+  | PacketSessionData
+  | PacketLapData
+  | PacketEventData
+  | PacketParticipantsData
+  | PacketCarSetupData
+  | PacketCarTelemetryData
+  | PacketCarStatusData
+  | PacketFinalClassificationData
+  | PacketLobbyInfoData
+  | PacketCarDamageData
+  | PacketSessionHistoryData
+  | PacketHeader;
+
+
+  
+  

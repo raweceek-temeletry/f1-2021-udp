@@ -1,6 +1,6 @@
 {
   "name": "f1-2021-udp",
-  "version": "1.12.5",
+  "version": "1.12.6",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
@@ -26,8 +26,8 @@
     "gts": "^3.1.0",
     "husky": "^7.0.2",
     "lint-staged": "11.2.6",
-    "uglify-js": "^3.14.2",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "uglify-js": "^3.14.2"
   },
   "scripts": {
     "prepublishOnly": "npm run build",

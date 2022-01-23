@@ -1,4 +1,4 @@
-import {F1Parser} from '../parsers/F1Parser';
+import {F1Parser} from './F1Parser';
 
 export class PacketFormatParser extends F1Parser {
   constructor() {

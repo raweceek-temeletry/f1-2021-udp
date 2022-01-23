@@ -1,5 +1,5 @@
 import {F1Parser} from '../F1Parser';
-import {PacketSessionData} from './types';
+import {PacketSessionData} from '../../types/session';
 import {MarshalZoneParser} from './MarshalZoneParser';
 import {PacketHeaderParser} from '../PacketHeaderParser';
 import {WeatherForecastSampleParser} from './WeatherForecastSampleParser';

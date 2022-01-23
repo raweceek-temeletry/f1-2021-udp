@@ -32,10 +32,14 @@ import {
   PacketParticipantsData,
   PacketSessionData,
   PacketSessionHistoryData,
-} from './parsers/types';
+  PacketHeader,
 
-import {PacketHeader} from './parsers/types';
-import {Address, Options, ParsedMessage, PacketDataParser, F1_2021_UDP_Parser} from './types';
+  Address,
+  Options,
+  ParsedMessage,
+  PacketDataParser,
+  F1_2021_UDP_Parser
+} from './types';
 
 const DEFAULT_PORT = 20777;
 const FORWARD_ADDRESSES = undefined;
@@ -43,19 +47,151 @@ const BIGINT_ENABLED = true;
 const ADDRESS = 'localhost';
 const BINARY_BUTTONS = false;
 
+
 declare interface F1TelemetryClient {
-  on(event: 'motion', listener: (data: PacketMotionData) => void): this; //0
-  on(event: 'session', listener: (data: PacketSessionData) => void): this; //1
-  on(event: 'lapData', listener: (data: PacketLapData) => void): this; //2
-  on(event: 'event', listener: (data: PacketEventData) => void): this; //3
-  on(event: 'participants', listener: (data: PacketParticipantsData) => void): this; //4
-  on(event: 'carSetups', listener: (data: PacketCarSetupData) => void): this; //5
-  on(event: 'carTelemetry', listener: (data: PacketCarTelemetryData) => void): this; //6
-  on(event: 'carStatus', listener: (data: PacketCarStatusData) => void): this; //7
-  on(event: 'lobbyInfo', listener: (data: PacketLobbyInfoData) => void): this; //8
-  on(event: 'finalClassification', listener: (data: PacketFinalClassificationData) => void): this; //8
-  on(event: 'carDamage', listener: (data: PacketCarDamageData) => void): this; //10
-  on(event: 'sessionHistory', listener: (data: PacketSessionHistoryData) => void): this; //11
+
+  /** 
+  @event `"motion"`
+  @description `Frequency: Rate as specified in menus Size: 1464 bytes`
+   ```ts
+    client.on('motion', data => {
+    const motion:PacketMotionData = data
+    })
+    ```
+  */
+  on(event: 'motion',listener: (data: PacketMotionData) => void): this; //0
+
+
+  /** 
+  @event "session"
+  @description `Frequency: 2 per second; Size: 625 bytes;`
+   ```ts
+    client.on('session', data => {
+    const session:PacketSessionData = data
+    })
+    ```
+  */
+  on(event: 'session',listener: (data: PacketSessionData) => void): this; //1
+
+
+  /** 
+  @event "lapData"
+  @description `Frequency: Rate as specified in menus Size: 970 bytes`
+   ```ts
+    client.on('lapData', data => {
+    const LapData:PacketLapData = data
+    })
+    ```
+  */
+  on(event: 'lapData',listener: (data: PacketLapData) => void): this; //2
+
+
+  /** 
+  @event "event"
+  @description `Frequency: When the event occurs; Size: 36 bytes;`
+   ```ts
+    client.on('event', data => {
+    const event:PacketEventData = data
+    })
+    ```
+  */
+  on(event: 'event',listener: (data: PacketEventData) => void): this; //3
+
+
+  /** 
+  @event "participants"
+  @description  `Frequency: Every 5 seconds Size: 1257 bytes`
+   ```ts
+    client.on('participants', data => {
+    const participants:PacketParticipantsData = data
+    })
+    ```
+  */
+  on(event: 'participants',listener: (data: PacketParticipantsData) => void): this; //4
+
+
+  /** 
+  @event "carSetups"
+  @description `Frequency: 2 per second Size: 1102 bytes`
+   ```ts
+    client.on('carSetups', data => {
+    const carSetups:PacketCarSetupData = data
+    })
+    ```
+  */
+  on(event: 'carSetups',listener: (data: PacketCarSetupData) => void): this; //5
+
+
+  /** 
+  @event "carTelemetry"
+  @description `Frequency: Rate as specified in menus Size: 1347 bytes`
+   ```ts
+    client.on('carTelemetry', data => {
+    const carTelemetry:PacketCarTelemetryData = data
+    })
+    ```
+  */
+  on(event: 'carTelemetry',listener: (data: PacketCarTelemetryData) => void): this; //6
+
+
+  /** 
+  @event "carStatus"
+  @description `Frequency: Rate as specified in menus Size: 1058 bytes`
+   ```ts
+    client.on('carStatus', data => {
+    const carStatus:PacketCarStatusData = data
+    })
+    ```
+  */
+  on(event: 'carStatus',listener: (data: PacketCarStatusData) => void): this; //7
+
+
+  /** 
+  @event "lobbyInfo"
+  @description `Frequency: Two every second when in the lobby Size: 1191 bytes`
+   ```ts
+    client.on('lobbyInfo', data => {
+    const lobbyInfo:PacketLobbyInfoData = data
+    })
+    ```
+  */
+  on(event: 'lobbyInfo',listener: (data: PacketLobbyInfoData) => void): this; //8
+
+
+  /** 
+  @event "finalClassification"
+  @description `Frequency: Once at the end of a race Size: 839 bytes`
+   ```ts
+    client.on('finalClassification', data => {
+    const finalClassification:PacketFinalClassificationData = data
+    })
+    ```
+  */
+  on(event: 'finalClassification',listener: (data: PacketFinalClassificationData) => void): this; //8
+  
+
+  /** 
+  @event "carDamage"
+  @description `Frequency: 2 per second Size: 882 bytes`
+   ```ts
+    client.on('carDamage', data => {
+    const carDamage:PacketCarDamageData = data
+    })
+    ```
+  */
+  on(event: 'carDamage',listener: (data: PacketCarDamageData) => void): this; //10
+
+
+  /** 
+  @event "sessionHistory"
+  @description `Frequency: 20 per second but cycling through cars Size: 1155 bytes`
+   ```ts
+    client.on('sessionHistory', data => {
+    const sessionHistory:PacketSessionHistoryData = data
+    })
+    ```
+  */
+  on(event: 'sessionHistory',listener: (data: PacketSessionHistoryData) => void): this; //11
 }
 
 class F1TelemetryClient extends EventEmitter {
@@ -94,21 +230,21 @@ class F1TelemetryClient extends EventEmitter {
     bigintEnabled = false,
     binaryButtonFlags = false
   ): ParsedMessage | undefined {
-    const header: PacketHeader = F1TelemetryClient.parsePacketHeader(message, bigintEnabled);
+    const header: PacketHeader = F1TelemetryClient.parsePacketHeader(message,bigintEnabled);
     const {m_packetId} = header as PacketHeader;
 
     const parser: F1_2021_UDP_Parser = F1TelemetryClient.getParserByPacketId(m_packetId);
 
-    if (!parser) {
+    if(!parser) {
       return;
     }
 
-    const packetData: PacketDataParser = new parser(message, bigintEnabled, binaryButtonFlags);
+    const packetData: PacketDataParser = new parser(message,bigintEnabled,binaryButtonFlags);
     const packetID: string = Object.keys(constants.PACKETS)[m_packetId];
 
     // emit parsed message
 
-    return {packetData, packetID};
+    return {packetData,packetID};
   }
 
   /**
@@ -118,7 +254,7 @@ class F1TelemetryClient extends EventEmitter {
    * @param {Boolean} binaryButtonFlags
    */
 
-  static parsePacketHeader(buffer: Buffer, bigintEnabled: boolean): PacketHeader {
+  static parsePacketHeader(buffer: Buffer,bigintEnabled: boolean): PacketHeader {
     const packetHeaderParser: PacketHeaderParser = new PacketHeaderParser(bigintEnabled);
     return packetHeaderParser.fromBuffer(buffer) as PacketHeader;
   }
@@ -128,7 +264,7 @@ class F1TelemetryClient extends EventEmitter {
    * @param {Number} packetFormat
    * @param {Number} packetId
    */
-  static getPacketSize(packetFormat: number, packetId: number): number {
+  static getPacketSize(packetFormat: number,packetId: number): number {
     const {PACKET_SIZES} = constants;
     const packetValues: {[index: number]: number}[] = Object.values(PACKET_SIZES);
     return packetValues[packetId][packetFormat];
@@ -143,7 +279,7 @@ class F1TelemetryClient extends EventEmitter {
     const packetKeys: string[] = Object.keys(PACKETS);
     const packetType: string = packetKeys[packetId];
 
-    switch (packetType) {
+    switch(packetType) {
       case PACKETS.carDamage:
         return PacketCarDamageParser;
 
@@ -189,8 +325,8 @@ class F1TelemetryClient extends EventEmitter {
    *
    * @param {Buffer} message
    */
-  handleMessage(message: Buffer): void {
-    if (this.forwardAddresses) {
+  handleMessage(message: Buffer) {
+    if(this.forwardAddresses) {
       // bridge message
       this.bridgeMessage(message);
     }
@@ -201,12 +337,12 @@ class F1TelemetryClient extends EventEmitter {
       this.binaryButtonFlags
     );
 
-    if (!parsedMessage || !parsedMessage.packetData) {
+    if(!parsedMessage || !parsedMessage.packetData) {
       return;
     }
 
     // emit parsed message
-    this.emit(parsedMessage.packetID, parsedMessage.packetData.data);
+    this.emit(parsedMessage.packetID,parsedMessage.packetData.data);
   }
 
   /**
@@ -214,14 +350,14 @@ class F1TelemetryClient extends EventEmitter {
    * @param {Buffer} message
    */
   bridgeMessage(message: Buffer): void {
-    if (!this.socket) {
+    if(!this.socket) {
       throw new Error('Socket is not initialized');
     }
-    if (!this.forwardAddresses) {
+    if(!this.forwardAddresses) {
       throw new Error('No ports to bridge over');
     }
-    for (const address of this.forwardAddresses) {
-      this.socket.send(message, 0, message.length, address.port, address.ip || '0.0.0.0');
+    for(const address of this.forwardAddresses) {
+      this.socket.send(message,0,message.length,address.port,address.ip || '0.0.0.0');
     }
   }
 
@@ -229,21 +365,21 @@ class F1TelemetryClient extends EventEmitter {
    * Method to start listening for packets
    */
   start(): void {
-    if (!this.socket) {
+    if(!this.socket) {
       return;
     }
 
-    this.socket.on('listening', (): void => {
-      if (!this.socket) {
+    this.socket.on('listening',(): void => {
+      if(!this.socket) {
         return;
       }
 
       const address: AddressInfo = this.socket.address();
-      console.log(`UDP Client listening on ${address.address}:${address.port} 🏎`);
+      console.log(`UDP Client listening on ${ address.address }:${ address.port } 🏎`);
       this.socket.setBroadcast(true);
     });
 
-    this.socket.on('message', (m: Buffer): void => this.handleMessage(m));
+    this.socket.on('message',(m: Buffer): void => this.handleMessage(m));
     this.socket.bind({
       port: this.port,
       address: this.address,
@@ -254,12 +390,12 @@ class F1TelemetryClient extends EventEmitter {
   /**
    * Method to close the client
    */
-  stop(): dgram.Socket | undefined {
-    if (!this.socket) {
+  stop():void {
+    if(!this.socket) {
       return;
     }
 
-    return this.socket.close((): void => {
+     this.socket.close((): void => {
       console.log('UDP Client closed 🏁');
       this.socket = undefined;
     });
