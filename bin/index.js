@@ -27,7 +27,7 @@ function extractIP(str) {
 
 let validArgs = [];
 const dgram = require('dgram');
-const parser = require('f1-2021-udp')
+const parser = require('f1-2021-udp').F1TelemetryClient
 
 const socket = dgram.createSocket('udp4');
 const args = process.argv.slice(2);
@@ -45,10 +45,13 @@ if (args.length == 0) {
 } else if (args[ 0 ] == '-f' || args[ 0 ] == '--forward') {
     args2.map(arg => {
         if (isValidIPandPort(arg)) {
+
             const ip = extractIP(arg);
             const port = extractPort(arg);
+
             validArgs.push({ ip: ip, port: port });
             forward()
+            
         } else {
             console.error(`
             "${arg}"'is not valid!
@@ -63,11 +66,72 @@ if (args.length == 0) {
         };
     });
 } else if (args[ 0 ] == '--log' || args[ 0 ] == '-l') {
+    
     const client = new parser();
-    client.on('event', (data) => {
+    
+    // motion 0
+    client.on('motion',function(data) {
         console.log(data);
-
     })
+    
+    // session 1
+    client.on('session',function(data) {
+        console.log(data);
+    })
+    
+    // lap data 2
+    client.on('lapData',function(data) {
+        console.log(data);
+    })
+    
+    // event 3
+    client.on('event',function(data) {
+        console.log(data);
+    })
+    
+    // participants 4
+    client.on('participants',function(data) {
+        console.log(data);
+    })
+    
+    // car setup 5
+    client.on('carSetups',function(data) {
+        console.log(data);
+    })
+    
+    // car telemetry 6
+    client.on('carTelemetry',function(data) {
+        console.log(data);
+    })
+    
+    // car status 7
+    client.on('carStatus',function(data) {
+        console.log(data);
+    })
+    
+    // final classification 8
+    client.on('finalClassification',function(data) {
+        console.log(data);
+    })
+    
+    // lobby info 9
+    client.on('lobbyInfo',function(data) {
+        console.log(data);
+    })
+    
+    // car damage 10
+    client.on('carDamage',function(data) {
+        console.log(data);
+    })
+    
+    // session history 11
+    client.on('sessionHistory',function(data) {
+        console.log(data);
+    })
+    
+    
+    // to start listening:
+    client.start();
 }
 function forward() {
     socket.bind(20777, "127.0.0.1");
