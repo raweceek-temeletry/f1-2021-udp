@@ -26,6 +26,7 @@ function extractIP(str) {
 }
 
 let validArgs = [];
+const dgram = require('dgram');
 
 const socket = dgram.createSocket('udp4');
 const args = process.argv.slice(2);
