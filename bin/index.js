@@ -153,7 +153,7 @@ function forward() {
         validArgs.map(valid => {
             console.log(`forwarding to ${valid.ip}:${valid.port}`);
         })
-
+        const s2 = dgram.createSocket('udp4');
         socket.on('message', m => {
             s2.send(m, 0, m.length, validArgs[ 0 ].port, validArgs[ 0 ].ip, (err, bytes) => {
                 if (err) {
