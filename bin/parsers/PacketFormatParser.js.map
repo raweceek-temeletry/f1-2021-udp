@@ -1,0 +1,1 @@
+{"version":3,"file":"PacketFormatParser.js","sourceRoot":"","sources":["../../../src/parsers/PacketFormatParser.ts"],"names":[],"mappings":";;;AAAA,yCAAoC;AAEpC,MAAa,kBAAmB,SAAQ,mBAAQ;IAC9C;QACE,KAAK,EAAE,CAAC;QACR,IAAI,CAAC,SAAS,CAAC,QAAQ,CAAC,CAAC,QAAQ,CAAC,gBAAgB,CAAC,CAAC;IACtD,CAAC;CACF;AALD,gDAKC"}
