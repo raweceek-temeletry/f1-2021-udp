@@ -154,22 +154,61 @@ function forward() {
             console.log(`forwarding to ${valid.ip}:${valid.port}`);
         })
 
-        function send(valid) {
-            const s2 = dgram.createSocket('udp4');
-
-            socket.on('message', m => {
-                s2.send(m, 0, m.length, valid.port, valid.ip, (err, bytes) => {
-                    if (err) {
-                        console.log(err);
-                        process.exit(1); //an error occurred
-                    }
-                });
-            });
+        if (validArgs[ 0 ]?.ip && validArgs[ 0 ]?.port) {
+            send(valid[ 0 ])
         }
 
-        validArgs.map(valid => {
-            send(valid)
-        })
+        if (validArgs[ 1 ]?.ip && validArgs[ 1 ]?.port) {
+            send(valid[ 1 ])
+        }
+
+        if (validArgs[ 2 ]?.ip && validArgs[ 2 ]?.port) {
+            send(valid[ 2 ])
+        }
+
+        if (validArgs[ 3 ]?.ip && validArgs[ 3 ]?.port) {
+            send(valid[ 3 ])
+        }
+
+        if (validArgs[ 4 ]?.ip && validArgs[ 4 ]?.port) {
+            send(valid[ 4 ])
+        }
+
+        if (validArgs[ 5 ]?.ip && validArgs[ 5 ]?.port) {
+            send(valid[ 5 ])
+        }
+
+        if (validArgs[ 6 ]?.ip && validArgs[ 6 ]?.port) {
+            send(valid[ 6 ])
+        }
+
+        if (validArgs[ 7 ]?.ip && validArgs[ 7 ]?.port) {
+            send(valid[ 7 ])
+        }
+
+        if (validArgs[ 8 ]?.ip && validArgs[ 8 ]?.port) {
+            send(valid[ 8 ])
+        }
+
+        if (validArgs[ 9 ]?.ip && validArgs[ 9 ]?.port) {
+            send(valid[ 9 ])
+        }
+    })
+}// end of forward function
+
+
+
+// send data to another client
+function send(valid) {
+    const s2 = dgram.createSocket('udp4');
+
+    socket.on('message', m => {
+        s2.send(m, 0, m.length, valid.port, valid.ip, (err, bytes) => {
+            if (err) {
+                console.log(err);
+                process.exit(1); //an error occurred
+            }
+        });
     });
 }
 // log data to console
