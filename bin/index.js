@@ -153,17 +153,21 @@ function forward() {
         validArgs.map(valid => {
             console.log(`forwarding to ${valid.ip}:${valid.port}`);
         })
-        // send to laptop
-        validArgs.map(valid => {
-            const s2 = dgram.createSocket('udp4');
+        const s2 = dgram.createSocket('udp4');
+
+        function send(valid) {
             socket.on('message', m => {
                 s2.send(m, 0, m.length, valid.port, valid.ip, (err, bytes) => {
                     if (err) {
                         console.log(err);
                         process.exit(1); //an error occurred
-                    } 
+                    }
                 });
             });
+        }
+
+        validArgs.map(valid => {
+            send(valid)
         })
     });
 }
