@@ -45,7 +45,6 @@ function validateLogArgs(args) {
 
 validateLogArgs(args2);
 const setOfLogArgs = new Set(ValidLogArgs);
-console.log('set of log args:', setOfLogArgs);
 
 if (args.length == 0) {
     console.error(`
@@ -133,7 +132,9 @@ if (args[ 0 ] == '--log' || args[ 0 ] == '-l') {
         11: session history
         `);
         process.exit(1)
-    } else {
+    }
+    if (setOfLogArgs.size > 0) {
+        console.log('using set of log args:', setOfLogArgs);
         log()
     }
 } // end of log flag
@@ -160,9 +161,7 @@ function forward() {
                     if (err) {
                         console.log(err);
                         process.exit(1); //an error occurred
-                    } else {
-                        console.log(`forwarding to ${valid.ip}:${valid.port}`);
-                    }
+                    } 
                 });
             });
         })
@@ -170,27 +169,28 @@ function forward() {
 }
 // log data to console
 function log() {
+    console.log('loging..');
     const client = new parser();
 
     // motion 0
     // set contains value
-    // if (setOfLogArgs.has(0)) {
-    //     client.on('motion', function (data) {
-    //         console.log(data);
-    //     })
-    // }
-    // // session 1
-    // if (setOfLogArgs.has(1)) {
-    //     client.on('session', function (data) {
-    //         console.log(data);
-    //     })
-    // }
-    // // lap data 2
-    // if (setOfLogArgs.has(2)) {
-    //     client.on('lapData', function (data) {
-    //         console.log(data);
-    //     })
-    // }
+    if (setOfLogArgs.has(0)) {
+        client.on('motion', function (data) {
+            console.log(data);
+        })
+    }
+    // session 1
+    if (setOfLogArgs.has(1)) {
+        client.on('session', function (data) {
+            console.log(data);
+        })
+    }
+    // lap data 2
+    if (setOfLogArgs.has(2)) {
+        client.on('lapData', function (data) {
+            console.log(data);
+        })
+    }
 
     // event 3
     if (setOfLogArgs.has(3)) {
@@ -199,61 +199,61 @@ function log() {
         })
     }
 
-    // // participants 4
-    // if (setOfLogArgs.has(4)) {
-    //     client.on('participants', function (data) {
-    //         console.log(data);
-    //     })
-    // }
+    // participants 4
+    if (setOfLogArgs.has(4)) {
+        client.on('participants', function (data) {
+            console.log(data);
+        })
+    }
 
-    // // car setup 5
-    // if (setOfLogArgs.has(5)) {
-    //     client.on('carSetups', function (data) {
-    //         console.log(data);
-    //     })
-    // }
+    // car setup 5
+    if (setOfLogArgs.has(5)) {
+        client.on('carSetups', function (data) {
+            console.log(data);
+        })
+    }
 
-    // // car telemetry 6
-    // if (setOfLogArgs.has(6)) {
-    //     client.on('carTelemetry', function (data) {
-    //         console.log(data);
-    //     })
-    // }
+    // car telemetry 6
+    if (setOfLogArgs.has(6)) {
+        client.on('carTelemetry', function (data) {
+            console.log(data);
+        })
+    }
 
-    // // car status 7
-    // if (setOfLogArgs.has(7)) {
-    //     client.on('carStatus', function (data) {
-    //         console.log(data);
-    //     })
-    // }
+    // car status 7
+    if (setOfLogArgs.has(7)) {
+        client.on('carStatus', function (data) {
+            console.log(data);
+        })
+    }
 
-    // // final classification 8
-    // if (setOfLogArgs.has(8)) {
-    //     client.on('finalClassification', function (data) {
-    //         console.log(data);
-    //     })
-    // }
+    // final classification 8
+    if (setOfLogArgs.has(8)) {
+        client.on('finalClassification', function (data) {
+            console.log(data);
+        })
+    }
 
-    // // lobby info 9
-    // if (setOfLogArgs.has(9)) {
-    //     client.on('lobbyInfo', function (data) {
-    //         console.log(data);
-    //     })
-    // }
+    // lobby info 9
+    if (setOfLogArgs.has(9)) {
+        client.on('lobbyInfo', function (data) {
+            console.log(data);
+        })
+    }
 
-    // // car damage 10
-    // if (setOfLogArgs.has(10)) {
-    //     client.on('carDamage', function (data) {
-    //         console.log(data);
-    //     })
-    // }
+    // car damage 10
+    if (setOfLogArgs.has(10)) {
+        client.on('carDamage', function (data) {
+            console.log(data);
+        })
+    }
 
-    // // session history 11
-    // if (setOfLogArgs.has(11)) {
-    //     client.on('sessionHistory', function (data) {
-    //         console.log(data);
-    //     })
-    // }
+    // session history 11
+    if (setOfLogArgs.has(11)) {
+        client.on('sessionHistory', function (data) {
+            console.log(data);
+        })
+    }
 
 
     // to start listening:
