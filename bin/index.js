@@ -27,7 +27,7 @@ function extractIP(str) {
 
 let validArgs = [];
 const dgram = require('dgram');
-const client = require('f1-2021-udp')
+const parser = require('f1-2021-udp')
 
 const socket = dgram.createSocket('udp4');
 const args = process.argv.slice(2);
@@ -63,7 +63,7 @@ if (args.length == 0) {
         };
     });
 } else if (args[ 0 ] == '--log' || args[ 0 ] == '-l') {
-
+    const client = new parser();
     client.on('event', (data) => {
         console.log(data);
 
