@@ -1,6 +1,6 @@
 {
   "name": "f1-2021-udp",
-  "version": "1.13.15",
+  "version": "1.14.0",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
@@ -34,20 +34,9 @@
   },
   "scripts": {
     "prepublishOnly": "npm run build",
-    "start": "npm run build && node build/playground/index.js",
-    "Motion": "npm run build && node build/playground/0_Motion.js",
-    "Session": "npm run build && node build/playground/1_Session.js",
-    "LapData": "npm run build && node build/playground/2_LapData.js",
-    "Event": "npm run build && node build/playground/3_Event.js",
-    "Participants": "npm run build && node build/playground/4_Participants.js",
-    "CarSetups": "npm run build && node build/playground/5_CarSetups.js",
-    "CarTelemetry": "npm run build && node build/playground/6_CarTelemetry.js",
-    "CarStatus": "npm run build && node build/playground/7_CarStatus.js",
-    "FinalClassification": "npm run build && node build/playground/8_FinalClassification.js",
-    "LobbyInfo": "npm run build && node build/playground/9_LobbyInfo.js",
-    "CarDamage": "npm run build && node build/playground/10_CarDamage.js",
-    "SessionHistory": "npm run build && node build/playground/11_SessionHistory.js",
-    "build": "tsc && npm run uglify",
+    "start": "npm run build && node build/dev/index.js",
+    "build": "tsc",
+    "build-prod": "tsc && npm run uglify",
     "build:link": "npm run build && npm link",
     "type-check:watch": "npm run type-check -- --watch",
     "type-check": "tsc --noEmit",
@@ -63,7 +52,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint && gts fix"
+      "pre-commit": "lint && gts fix && npm run build-prod"
     }
   },
   "lint-staged": {
@@ -73,38 +62,16 @@
     ]
   },
   "keywords": [
-    "f1",
-    "game",
+    "codemasters",
+    "f1 2021",
     "udp",
-    "f1-2021",
-    "f12021",
     "telemetry",
     "parser",
+    "e-sports",
     "racing",
-    "esports",
-    "codemasters",
-    "f1 game",
-    "f1 2021",     
-    "f1 telemetry",
-    "f1 udp",
-    "f1 parser",
-    "f1 racing",
-    "f1 esports",
-    "f1 sim racing",
-    "f1 codemasters",
-    "formula 1",
-    "formula 1 2021",
-    "formula 1 game",
-    "formula 1 racing",
-    "formula 1 simracing",
-    "formula 1 udp",
-    "formula 1 parser",
-    "formula 1 telemetry",
-    "formula 1 codemasters",
     "PlayStation",
     "xbox",
     "PC"
-   
   ],
   "engines": {
     "node": ">=12"
