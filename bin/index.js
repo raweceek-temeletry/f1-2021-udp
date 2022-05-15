@@ -27,60 +27,77 @@ function extractIP(str) {
 
 let validArgs = [];
 const dgram = require('dgram');
+const client = require('f1-2021-udp')
 
 const socket = dgram.createSocket('udp4');
 const args = process.argv.slice(2);
+const args2 = process.argv.slice(3);
+
 
 if (args.length == 0) {
     console.error(`
+    forwarding: 
     Please enter the IP address and port number
-    Usage: Example: npx f1-2021-udp-forwarder [<IP>:<PORT>]
-    Example: npx f1-2021-udp-forwarder 192.168.1.114:20777`)
-} else {
-    args.map(arg => {
+    Usage: Example: npx f1-2021-udp [<IP>:<PORT>]
+    Example: npx f1-2021-udp -f 192.168.1.114:20777`)
+    process.exit(1); //an error occurred
+
+} else if (args[ 0 ] == '-f' || args[ 0 ] == '--forward') {
+    args2.map(arg => {
         if (isValidIPandPort(arg)) {
             const ip = extractIP(arg);
             const port = extractPort(arg);
             validArgs.push({ ip: ip, port: port });
+            forward()
         } else {
-            console.error(`"${arg}"'is not valid!
+            console.error(`
+            "${arg}"'is not valid!
             
-            Please enter the IP address and port number
-            Usage: Example: npx f1-2021-udp-forwarder [<IP>:<PORT>]
-            Example: npx f1-2021-udp-forwarder 192.168.1.114:20777`)
+            Please enter the IP address and port number!
+
+            Usage: Example: npx f1-2021-udp [<IP>:<PORT>]
+
+            Example: npx f1-2021-udp -forward 192.168.1.114:20777
+            `)
             process.exit(1); //an error occurred
         };
     });
+} else if (args[ 0 ] == '--log' || args[ 0 ] == '-l') {
 
+    client.on('event', (data) => {
+        console.log(data);
 
+    })
 }
-socket.bind(20777, "127.0.0.1");
+function forward() {
+    socket.bind(20777, "127.0.0.1");
 
 
-socket.on("listening", () => {
-    console.log(`
+    socket.on("listening", () => {
+        console.log(`
     listening on:  ${socket.address().address}:${socket.address().port}
 `);
-    validArgs.map(valid => {
+        validArgs.map(valid => {
 
-        console.log(`forwarding to ${valid.ip}:${valid.port}`);
-    })
+            console.log(`forwarding to ${valid.ip}:${valid.port}`);
+        })
 
 
-    // send to laptop
-    validArgs.map(valid => {
-        const s2 = dgram.createSocket('udp4');
-        socket.on('message', m => {
-            s2.send(m, 0, m.length, valid.port, valid.ip, (err, bytes) => {
-                if (err) {
-                    console.log(err);
-                    process.exit(1); //an error occurred
+        // send to laptop
+        validArgs.map(valid => {
+            const s2 = dgram.createSocket('udp4');
+            socket.on('message', m => {
+                s2.send(m, 0, m.length, valid.port, valid.ip, (err, bytes) => {
+                    if (err) {
+                        console.log(err);
+                        process.exit(1); //an error occurred
 
-                } else {
-                    console.log(`forwarding to ${valid.ip}:${valid.port}`);
-                }
+                    } else {
+                        console.log(`forwarding to ${valid.ip}:${valid.port}`);
+                    }
 
+                });
             });
-        });
-    })
-});
+        })
+    });
+}
