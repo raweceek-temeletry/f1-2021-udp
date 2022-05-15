@@ -34,13 +34,14 @@ const args = process.argv.slice(2);
 const args2 = process.argv.slice(3);
 const ValidLogArgs = []
 // validate array of args to be values from 0 to 11
-function validateArgs(args) {
+function validateLogArgs(args) {
     for (let i = 0; i < args.length; i++) {
         if (args[ i ] >= 0 && args[ i ] <= 11) {
             ValidLogArgs.push(args[ i ]);
         }
     }
 }
+validateLogArgs(args2);
 const setOfLogArgs = new Set(ValidLogArgs);
 
 if (args.length == 0) {
