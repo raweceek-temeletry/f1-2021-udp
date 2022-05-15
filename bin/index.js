@@ -79,6 +79,16 @@ if (args.length == 0) {
 } // end of zero args
 
 if (args[ 0 ] == '-f' || args[ 0 ] == '--forward') {
+    if (args2.length == 0) {
+        console.log(`
+        Please enter the IP address and port number!
+
+        Usage: Example: npx f1-2021-udp [<IP>:<PORT>]
+
+        Example: npx f1-2021-udp -forward 192.168.1.114:20777
+        `)
+        process.exit(1); //an error occurred
+    }
     args2.map(arg => {
         if (isValid_IP_and_Port(arg)) {
 
@@ -104,10 +114,7 @@ if (args[ 0 ] == '-f' || args[ 0 ] == '--forward') {
 } // end of forward flag 
 
 if (args[ 0 ] == '--log' || args[ 0 ] == '-l') {
-    if (setOfLogArgs.length > 0) {
-        log()
-    }
-    else {
+    if (setOfLogArgs.size == 0) {
         console.log(`
         log flags: --log or -l
         log args: [package id]
@@ -126,6 +133,8 @@ if (args[ 0 ] == '--log' || args[ 0 ] == '-l') {
         11: session history
         `);
         process.exit(1)
+    } else {
+        log()
     }
 } // end of log flag
 
