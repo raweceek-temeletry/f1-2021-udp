@@ -8,7 +8,7 @@ function isValidPort(str) {
     let cong = /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/
     return cong.test(str);
 }
-function isValidIPandPort(str) {
+function isValid_IP_and_Port(str) {
     let cong = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9]):([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/
     return cong.test(str);
 }
@@ -35,14 +35,17 @@ const args2 = process.argv.slice(3);
 const ValidLogArgs = []
 // validate array of args to be values from 0 to 11
 function validateLogArgs(args) {
-    for (let i = 0; i < args.length; i++) {
-        if (args[ i ] >= 0 && args[ i ] <= 11) {
-            ValidLogArgs.push(args[ i ]);
+    args2.map(x => {
+
+        if (x >= 0 && x <= 11) {
+            ValidLogArgs.push(x);
         }
-    }
+    })
 }
+
 validateLogArgs(args2);
 const setOfLogArgs = new Set(ValidLogArgs);
+console.log('set of log args:', setOfLogArgs);
 
 if (args.length == 0) {
     console.error(`
@@ -50,8 +53,8 @@ if (args.length == 0) {
     forwarding args: ip:port
     Example: npx f1-2021-udp -f 192.168.1.114:20777
 
-    log flags: --log
-    log args: package id
+    log flags: --log or -l
+    log args: [package id]
     Example: npx f1-2021-udp --log 1 2 3 4 5 6 7 8 9 10 11
     0: motion
     1: session
@@ -73,9 +76,11 @@ if (args.length == 0) {
     `)
     process.exit(1); //an error occurred
 
-} else if (args[ 0 ] == '-f' || args[ 0 ] == '--forward') {
+} // end of zero args
+
+if (args[ 0 ] == '-f' || args[ 0 ] == '--forward') {
     args2.map(arg => {
-        if (isValidIPandPort(arg)) {
+        if (isValid_IP_and_Port(arg)) {
 
             const ip = extractIP(arg);
             const port = extractPort(arg);
@@ -96,8 +101,66 @@ if (args.length == 0) {
             process.exit(1); //an error occurred
         };
     });
-} else if (args[ 0 ] == '--log' || args[ 0 ] == '-l') {
+} // end of forward flag 
 
+if (args[ 0 ] == '--log' || args[ 0 ] == '-l') {
+    if (setOfLogArgs.length > 0) {
+        log()
+    }
+    else {
+        console.log(`
+        log flags: --log or -l
+        log args: [package id]
+        Example: npx f1-2021-udp --log 1 2 3 4 5 6 7 8 9 10 11
+        0: motion
+        1: session
+        2: lap data
+        3: event
+        4: participants
+        5: car setups
+        6: car telemetry
+        7: car status
+        8: final classification
+        9: lobby info
+        10: car damage
+        11: session history
+        `);
+        process.exit(1)
+    }
+} // end of log flag
+
+
+
+// forward data to another client
+function forward() {
+    socket.bind(20777, "127.0.0.1");
+
+
+    socket.on("listening", () => {
+        console.log(`
+    listening on:  ${socket.address().address}:${socket.address().port}
+`);
+        validArgs.map(valid => {
+            console.log(`forwarding to ${valid.ip}:${valid.port}`);
+        })
+        // send to laptop
+        validArgs.map(valid => {
+            const s2 = dgram.createSocket('udp4');
+            socket.on('message', m => {
+                s2.send(m, 0, m.length, valid.port, valid.ip, (err, bytes) => {
+                    if (err) {
+                        console.log(err);
+                        process.exit(1); //an error occurred
+                    } else {
+                        console.log(`forwarding to ${valid.ip}:${valid.port}`);
+                    }
+                });
+            });
+        })
+    });
+}
+// log data to console
+function log() {
     const client = new parser();
 
     // motion 0
@@ -185,36 +248,4 @@ if (args.length == 0) {
 
     // to start listening:
     client.start();
-}
-function forward() {
-    socket.bind(20777, "127.0.0.1");
-
-
-    socket.on("listening", () => {
-        console.log(`
-    listening on:  ${socket.address().address}:${socket.address().port}
-`);
-        validArgs.map(valid => {
-
-            console.log(`forwarding to ${valid.ip}:${valid.port}`);
-        })
-
-
-        // send to laptop
-        validArgs.map(valid => {
-            const s2 = dgram.createSocket('udp4');
-            socket.on('message', m => {
-                s2.send(m, 0, m.length, valid.port, valid.ip, (err, bytes) => {
-                    if (err) {
-                        console.log(err);
-                        process.exit(1); //an error occurred
-
-                    } else {
-                        console.log(`forwarding to ${valid.ip}:${valid.port}`);
-                    }
-
-                });
-            });
-        })
-    });
 }
