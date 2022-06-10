@@ -3,8 +3,7 @@
 .idea
 
 
-example-output
-playground
+dev
 src
 
 .clang-format

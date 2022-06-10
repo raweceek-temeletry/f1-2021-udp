@@ -15,10 +15,10 @@ The F1 series of games support the outputting of key game data via a UDP data st
 ![](/logo.jpg)
 
 ## forwarding
-> you can forward the udp data to your laptop for development or other consumption
+> you can forward the udp data to your laptop, phone or any other other device for development or other consumption
 
 ```
-npx f1-2021-udp --forward 192.168.88.114:20777
+npx f1-2021-udp --forward 192.168.88.114:20777 192.168.88.200:20777
 ```
 
 ## logging
