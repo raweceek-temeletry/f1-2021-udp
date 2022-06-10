@@ -1,6 +1,6 @@
 {
   "name": "f1-2021-udp",
-  "version": "1.15.0",
+  "version": "1.15.989",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
@@ -12,7 +12,7 @@
     "url": "https://github.com/raweceek-temeletry/f1-2021-udp"
   },
   "dependencies": {
-    "binary-parser": "2.0.3"
+    "binary-parser": "2.1.0"
   },
   "devDependencies": {
     "@types/binary-parser": "1.5.1",
@@ -26,8 +26,8 @@
     "gts": "^3.1.0",
     "husky": "^7.0.2",
     "lint-staged": "11.2.6",
-    "typescript": "^4.4.4",
-    "uglify-js": "^3.14.2"
+    "typescript": "^4.7.3",
+    "uglify-js": "^3.16.0"
   },
   "bin": {
     "forward": "bin/index.js"
