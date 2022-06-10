@@ -21,6 +21,8 @@ The F1 series of games support the outputting of key game data via a UDP data st
 npx f1-2021-udp --forward 192.168.88.114:20777 192.168.88.200:20777
 ```
 
+![powershell](https://user-images.githubusercontent.com/64712362/173060223-a56b7331-01c3-48a5-a0ab-953d51600a44.PNG)
+
 ## logging
 > you can log the parsed data to the console using any of the packet id's
 ``` 
