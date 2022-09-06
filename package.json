@@ -12,7 +12,7 @@
     "url": "https://github.com/raweceek-temeletry/f1-2021-udp"
   },
   "dependencies": {
-    "binary-parser": "2.1.0"
+    "binary-parser": "2.2.0"
   },
   "devDependencies": {
     "@types/binary-parser": "1.5.1",
